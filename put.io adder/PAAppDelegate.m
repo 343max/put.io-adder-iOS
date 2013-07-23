@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import "PAPutIOController.h"
+
 #import "PATransfersViewController.h"
 
 #import "PAAppDelegate.h"
@@ -24,6 +26,12 @@
     
     self.navigationController = navigationController;
     self.window.rootViewController = navigationController;
+    
+    if ([PAPutIOController sharedController].putIOClient.ready == NO) {
+        [self.navigationController presentViewController:[[PAPutIOController sharedController] authenticationViewController]
+                                                animated:YES
+                                              completion:nil];
+    }
     
     return YES;
 }
