@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <PutioKit/PutIONetworkConstants.h>
+
 #import "PAPutIOController.h"
 
 @implementation PAPutIOController
@@ -41,9 +43,25 @@
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [viewController.view addSubview:webView];
     
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    
+    [webView setShouldStartLoadBlock:^BOOL(UIWebView *webView, NSURLRequest *request, UIWebViewNavigationType navigationType) {
+        NSURL *URL = request.URL;
+        
+        if ([URL.host isEqualToString:@"localhost"]) {
+            self.putIOClient.apiToken = [URL.fragment substringFromIndex:13];
+            [[NSUserDefaults standardUserDefaults] setObject:self.putIOClient.apiToken forKey:PKAppAuthTokenDefault];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [navigationController dismissViewControllerAnimated:YES completion:nil];
+            return NO;
+        }
+
+        return YES;
+    }];
+    
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://api.put.io/v2/oauth2/authenticate?client_id=741&response_type=token&redirect_uri=http://localhost/"]]];
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     return navigationController;
 }
 

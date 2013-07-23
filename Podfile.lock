@@ -1,6 +1,6 @@
 PODS:
   - AFNetworking (1.3.1)
-  - BlocksKit (1.8.2):
+  - BlocksKit (HEAD based on 1.8.2):
     - libffi
   - libffi (3.0.13)
   - NSObject+Expectation (0.2)
@@ -8,7 +8,7 @@ PODS:
     - AFNetworking (~> 1.0)
 
 DEPENDENCIES:
-  - BlocksKit
+  - BlocksKit (HEAD)
   - NSObject+Expectation
   - PutioKit (from `git@github.com:PutioKit/PutioKit.git`)
 

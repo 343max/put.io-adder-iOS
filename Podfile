@@ -1,3 +1,3 @@
 pod 'NSObject+Expectation'
-pod 'BlocksKit'
+pod 'BlocksKit', :head
 pod 'PutioKit', :git => 'git@github.com:PutioKit/PutioKit.git'
