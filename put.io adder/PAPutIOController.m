@@ -41,6 +41,8 @@
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [viewController.view addSubview:webView];
     
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://api.put.io/v2/oauth2/authenticate?client_id=741&response_type=token&redirect_uri=http://localhost/"]]];
+    
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     return navigationController;
 }
