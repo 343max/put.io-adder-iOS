@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import "PATransfersViewController.h"
+
 #import "PAAppDelegate.h"
 
 @implementation PAAppDelegate
@@ -16,6 +18,13 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    PATransfersViewController *transfersViewController = [[PATransfersViewController alloc] initWithStyle:UITableViewStylePlain];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:transfersViewController];
+    
+    self.navigationController = navigationController;
+    self.window.rootViewController = navigationController;
+    
     return YES;
 }
 

@@ -10,6 +10,8 @@
 
 @interface PAAppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (weak) UINavigationController *navigationController;
+
 @property (strong, nonatomic) UIWindow *window;
 
 @end
