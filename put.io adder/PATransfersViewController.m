@@ -38,6 +38,15 @@
     return self;
 }
 
+- (void)viewDidLoad;
+{
+    [super viewDidLoad];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(reloadTransfers)
+                  forControlEvents:UIControlEventValueChanged];
+}
 
 - (void)viewDidAppear:(BOOL)animated;
 {
@@ -48,13 +57,19 @@
 
 - (void)reloadTransfers;
 {
+    [self.refreshControl beginRefreshing];
+    
     V2PutIOAPIClient *client = [PAPutIOController sharedController].putIOClient;
     
     if (client.ready == NO) return;
     
     [client getTransfers:^(NSArray *transfers) {
         self.transfers = transfers;
+        
+        [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
+        [self.refreshControl endRefreshing];
+        
         NSLog(@"error: %@", error);
         
         [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
@@ -83,6 +98,7 @@
         }
         
         [transfersDict[status] addObject:transfer];
+        
     }];
     
     NSDictionary *titles = @{@(PKTransferStatusUnknown): NSLocalizedString(@"Unknown", nil),
