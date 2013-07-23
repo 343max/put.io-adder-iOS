@@ -6,9 +6,16 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import "PAPutIOController.h"
+
 #import "PATransfersViewController.h"
 
 @interface PATransfersViewController ()
+
+@property (strong, nonatomic) NSArray *transfers;
+
+- (void)reloadTransfers;
+- (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -18,50 +25,78 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        self.title = NSLocalizedString(@"Transfers", @"Transfers View Controller Title");
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+- (void)viewDidAppear:(BOOL)animated;
+{
+    [super viewDidAppear:animated];
+    
+    [self reloadTransfers];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)reloadTransfers;
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    V2PutIOAPIClient *client = [PAPutIOController sharedController].putIOClient;
+    
+    if (client.ready == NO) return;
+    
+    [client getTransfers:^(NSArray *transfers) {
+        self.transfers = transfers;
+    } failure:^(NSError *error) {
+        NSLog(@"error: %@", error);
+        
+        [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
+                                    message:error.localizedDescription
+                          cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay button title")
+                          otherButtonTitles:nil
+                                    handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                        //
+                                    }];
+    }];
+}
+
+- (void)setTransfers:(NSArray *)transfers;
+{
+    if (transfers == _transfers) return;
+    
+    _transfers = transfers;
+    
+    [self.tableView reloadData];
+}
+
+- (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
+{
+    return self.transfers[indexPath.row];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return self.transfers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    PKTransfer *transfer = [self tranferForIndexPath:indexPath];
+    cell.textLabel.text = transfer.name;
+    cell.detailTextLabel.text = transfer.statusMessage;
     
     return cell;
 }
