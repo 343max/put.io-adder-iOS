@@ -10,6 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
+
 @interface PAPutIOController : NSObject
 
 + (PAPutIOController *)sharedController;
@@ -17,5 +19,6 @@
 @property (strong, readonly) V2PutIOAPIClient *putIOClient;
 
 - (UIViewController *)authenticationViewController;
+- (void)downloadFileAtMagnetURL:(NSURL *)magnetURL;
 
 @end

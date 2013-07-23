@@ -10,6 +10,8 @@
 
 #import "PAPutIOController.h"
 
+NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOControllerTransfersDidChangeNotification";
+
 @implementation PAPutIOController
 
 + (PAPutIOController *)sharedController;
@@ -63,6 +65,23 @@
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://api.put.io/v2/oauth2/authenticate?client_id=741&response_type=token&redirect_uri=http://localhost/"]]];
     
     return navigationController;
+}
+
+- (void)downloadFileAtMagnetURL:(NSURL *)magnetURL;
+{
+    [self.putIOClient requestTorrentOrMagnetURLAtPath:magnetURL.absoluteString
+                                                     :^(id userInfoObject) {
+                                                         NSLog(@"complete: %@", userInfoObject);
+                                                         [[NSNotificationCenter defaultCenter] postNotificationName:PAPutIOControllerTransfersDidChangeNotification
+                                                                                                             object:nil];
+                                                     } addFailure:^{
+#warning totaly incomplete
+                                                         NSLog(@"something did go wrong");
+
+                                                     } networkFailure:^(NSError *error) {
+#warning incomplete
+                                                         NSLog(@"network error: %@", error);
+                                                     }];
 }
 
 @end

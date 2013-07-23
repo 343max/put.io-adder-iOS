@@ -29,6 +29,11 @@
     self = [super initWithStyle:style];
     if (self) {
         self.title = NSLocalizedString(@"Transfers", @"Transfers View Controller Title");
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadTransfers)
+                                                     name:PAPutIOControllerTransfersDidChangeNotification
+                                                   object:nil];
     }
     return self;
 }
