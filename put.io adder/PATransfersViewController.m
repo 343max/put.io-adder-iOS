@@ -7,15 +7,18 @@
 //
 
 #import "PAPutIOController.h"
+#import "PATransferCategory.h"
 
 #import "PATransfersViewController.h"
 
 @interface PATransfersViewController ()
 
 @property (strong, nonatomic) NSArray *transfers;
+@property (strong, nonatomic) NSArray *transferCategories;
 
 - (void)reloadTransfers;
 - (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
+- (PATransferCategory *)categoryForSection:(NSInteger)section;
 
 @end
 
@@ -65,24 +68,72 @@
     
     _transfers = transfers;
     
+    NSMutableDictionary *transfersDict = [[NSMutableDictionary alloc] init];
+    
+    [transfers each:^(PKTransfer *transfer) {
+        NSNumber *status = @(transfer.transferStatus);
+        
+        if (transfersDict[status] == nil) {
+            transfersDict[status] = [[NSMutableArray alloc] init];
+        }
+        
+        [transfersDict[status] addObject:transfer];
+    }];
+    
+    NSDictionary *titles = @{@(PKTransferStatusUnknown): NSLocalizedString(@"Unknown", nil),
+                             @(PKTransferStatusError): NSLocalizedString(@"Error", nil),
+                             @(PKTransferStatusDownloading): NSLocalizedString(@"Downloading", nil),
+                             @(PKTransferStatusSeeding): NSLocalizedString(@"Seeding", nil),
+                             @(PKTransferStatusCompleted): NSLocalizedString(@"Completed", nil)};
+    
+    NSMutableArray *categories = [[NSMutableArray alloc] initWithCapacity:transfersDict.count];
+    
+    [titles each:^(NSNumber *status, NSString *title) {
+       PATransferCategory *category = [[PATransferCategory alloc] initWithTitle:title
+                                                                      transfers:transfersDict[status]];
+        
+        if (category.transfers.count != 0) {
+            [categories addObject:category];
+        }
+    }];
+    
+    self.transferCategories = categories;
+}
+
+- (void)setTransferCategories:(NSArray *)transferCategories;
+{
+    if (transferCategories == _transferCategories) return;
+    
+    _transferCategories = transferCategories;
+    
     [self.tableView reloadData];
+}
+
+- (PATransferCategory *)categoryForSection:(NSInteger)section;
+{
+    return self.transferCategories[section];
 }
 
 - (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
 {
-    return self.transfers[indexPath.row];
+    return [self categoryForSection:indexPath.section].transfers[indexPath.row];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.transferCategories.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.transfers.count;
+    return [self categoryForSection:section].transfers.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+{
+    return [self categoryForSection:section].title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

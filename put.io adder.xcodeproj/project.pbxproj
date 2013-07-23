@@ -18,6 +18,7 @@
 		50664B85179E86CC00E403D8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50664B84179E86CC00E403D8 /* Default-568h@2x.png */; };
 		50728929179EDD2B00235948 /* PAPutIOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50728928179EDD2B00235948 /* PAPutIOController.m */; };
 		5072892F179EE25700235948 /* PATransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5072892E179EE25700235948 /* PATransfersViewController.m */; };
+		50728932179EF35C00235948 /* PATransferCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 50728931179EF35C00235948 /* PATransferCategory.m */; };
 		FFDA42568C8048C99F40A4FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6D61ED720F42DD9637D512 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,8 @@
 		50728928179EDD2B00235948 /* PAPutIOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPutIOController.m; sourceTree = "<group>"; };
 		5072892D179EE25700235948 /* PATransfersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PATransfersViewController.h; sourceTree = "<group>"; };
 		5072892E179EE25700235948 /* PATransfersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PATransfersViewController.m; sourceTree = "<group>"; };
+		50728930179EF35C00235948 /* PATransferCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PATransferCategory.h; sourceTree = "<group>"; };
+		50728931179EF35C00235948 /* PATransferCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PATransferCategory.m; sourceTree = "<group>"; };
 		7F6D61ED720F42DD9637D512 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -97,6 +100,8 @@
 				50728928179EDD2B00235948 /* PAPutIOController.m */,
 				5072892D179EE25700235948 /* PATransfersViewController.h */,
 				5072892E179EE25700235948 /* PATransfersViewController.m */,
+				50728930179EF35C00235948 /* PATransferCategory.h */,
+				50728931179EF35C00235948 /* PATransferCategory.m */,
 			);
 			path = "put.io adder";
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				50664B7B179E86CC00E403D8 /* main.m in Sources */,
 				50664B7F179E86CC00E403D8 /* PAAppDelegate.m in Sources */,
 				5072892F179EE25700235948 /* PATransfersViewController.m in Sources */,
+				50728932179EF35C00235948 /* PATransferCategory.m in Sources */,
 				50728929179EDD2B00235948 /* PAPutIOController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
