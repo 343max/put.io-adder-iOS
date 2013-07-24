@@ -12,6 +12,4 @@
 
 @property (assign, nonatomic) float progress;
 
-@property (strong, nonatomic) UIColor *color;
-
 @end

@@ -32,7 +32,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context); {
         CGContextSetLineWidth(context, lineWidth);
-        CGContextSetStrokeColorWithColor(context, [self.color CGColor]);
+        CGContextSetStrokeColorWithColor(context, [self.tintColor CGColor]);
         
         CGContextBeginPath(context);
         CGContextAddArc(context, center.x, center.y, progressRadius, M_PI_2 * 3.0, M_PI_2 * 3.0 + M_PI * 2.0 * self.progress, 0);
@@ -68,10 +68,8 @@
     [self setNeedsDisplay];
 }
 
-- (void)setColor:(UIColor *)color;
+- (void)tintColorDidChange;
 {
-    if ([color isEqual:_color]) return;
-    _color = color;
     [self setNeedsDisplay];
 }
 
