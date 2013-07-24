@@ -48,15 +48,20 @@
      }];
 }
 
-- (NSArray *)flatFoldersFromFolderDict:(NSDictionary *)foldersByParent forRootFolder:(NSString *)rootFolder;
+- (NSArray *)flatFoldersFromFolderDict:(NSDictionary *)foldersByParent
+                         forRootFolder:(NSString *)rootFolder
+                               atDepth:(NSInteger)depth;
 {
     NSArray *folders = foldersByParent[rootFolder];
     
     NSMutableArray *flatFolders = [[NSMutableArray alloc] initWithCapacity:folders.count];
     
     [folders each:^(PKFolder *folder) {
+        folder.depth = depth;
         [flatFolders addObject:folder];
-        [flatFolders addObjectsFromArray:[self flatFoldersFromFolderDict:foldersByParent forRootFolder:folder.id]];
+        [flatFolders addObjectsFromArray:[self flatFoldersFromFolderDict:foldersByParent
+                                                           forRootFolder:folder.id
+                                                                 atDepth:depth + 1]];
     }];
     
     return [flatFolders copy];
@@ -80,7 +85,7 @@
         }];
     }];
     
-    _folders = [self flatFoldersFromFolderDict:foldersByParent forRootFolder:@"0"];
+    _folders = [self flatFoldersFromFolderDict:foldersByParent forRootFolder:@"0" atDepth:0];
     
     
     [self.tableView reloadData];
@@ -117,13 +122,7 @@
     PKFolder *folder = [self folderForIndexPath:indexPath];
     
     cell.textLabel.text = folder.name;
-    
-    if ([folder.parentID isEqualToString:@"0"]) {
-        cell.indentationLevel = 0;
-    } else {
-        cell.indentationLevel = 1;
-    }
-    
+    cell.indentationLevel = folder.depth;
     return cell;
 }
 
