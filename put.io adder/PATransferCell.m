@@ -46,6 +46,7 @@
     
     if (transfer.transferStatus == PKTransferStatusDownloading) {
         LSRoundProgressView *progressView = [[LSRoundProgressView alloc] initWithFrame:CGRectMake(0.0, 0.0, 38.0, 38.0)];
+        progressView.alpha = 1.0;
         progressView.progress = [transfer.percentDone floatValue] / 100.0;
         self.accessoryView = progressView;
         
