@@ -48,11 +48,40 @@
      }];
 }
 
+- (NSArray *)flatFoldersFromFolderDict:(NSDictionary *)foldersByParent forRootFolder:(NSString *)rootFolder;
+{
+    NSArray *folders = foldersByParent[rootFolder];
+    
+    NSMutableArray *flatFolders = [[NSMutableArray alloc] initWithCapacity:folders.count];
+    
+    [folders each:^(PKFolder *folder) {
+        [flatFolders addObject:folder];
+        [flatFolders addObjectsFromArray:[self flatFoldersFromFolderDict:foldersByParent forRootFolder:folder.id]];
+    }];
+    
+    return [flatFolders copy];
+}
+
 - (void)setFolders:(NSArray *)folders;
 {
     if (_folders == folders) return;
     
-    _folders = folders;
+    NSMutableDictionary *foldersByParent = [[NSMutableDictionary alloc] init];
+    [folders each:^(PKFolder *folder) {
+        if (foldersByParent[folder.parentID] == nil) {
+            foldersByParent[folder.parentID] = [[NSMutableArray alloc] init];
+        }
+        [foldersByParent[folder.parentID] addObject:folder];
+    }];
+    
+    [foldersByParent each:^(NSString *parentId, NSMutableArray *arrayOfFolders) {
+        [arrayOfFolders sortUsingComparator:^NSComparisonResult(PKFolder *folder1, PKFolder *folder2) {
+            return [folder1.name compare:folder2.name];
+        }];
+    }];
+    
+    _folders = [self flatFoldersFromFolderDict:foldersByParent forRootFolder:@"0"];
+    
     
     [self.tableView reloadData];
 }
@@ -82,9 +111,18 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.imageView.image = [[UIImage imageNamed:@"Folder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.indentationWidth = 10.0;
     }
     
-    cell.textLabel.text = [self folderForIndexPath:indexPath].name;
+    PKFolder *folder = [self folderForIndexPath:indexPath];
+    
+    cell.textLabel.text = folder.name;
+    
+    if ([folder.parentID isEqualToString:@"0"]) {
+        cell.indentationLevel = 0;
+    } else {
+        cell.indentationLevel = 1;
+    }
     
     return cell;
 }
