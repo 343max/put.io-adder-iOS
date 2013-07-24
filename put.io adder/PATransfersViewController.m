@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) NSArray *transfers;
 @property (strong, nonatomic) NSArray *transferCategories;
+@property (strong) NSTimer *refreshTimer;
 
 - (void)reloadTransfers;
 - (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
@@ -61,8 +62,16 @@
     [self reloadTransfers];
 }
 
+- (void)viewWillDisappear:(BOOL)animated;
+{
+    [super viewWillDisappear:animated];
+    
+    [self.refreshTimer invalidate];
+}
+
 - (void)reloadTransfers;
 {
+    [self.refreshTimer invalidate];
     [self.refreshControl beginRefreshing];
     
     V2PutIOAPIClient *client = [PAPutIOController sharedController].putIOClient;
@@ -73,6 +82,12 @@
         self.transfers = transfers;
         
         [self.refreshControl endRefreshing];
+        
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                             target:self
+                                                           selector:@selector(reloadTransfers)
+                                                           userInfo:nil
+                                                            repeats:NO];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];
         
