@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+
 #import "PAPutIOController.h"
 
 #import "PATransfersViewController.h"
@@ -16,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
