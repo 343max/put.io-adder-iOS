@@ -145,6 +145,7 @@
                                                                        transfers:transfersDict[status]];
         
         if (category.transfers.count != 0) {
+            [category sort];
             [categories addObject:category];
         }
     }];

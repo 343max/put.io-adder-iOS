@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <PutioKit/PKTransfer.h>
+
 #import "PATransferCategory.h"
 
 @implementation PATransferCategory
@@ -20,6 +22,13 @@
     }
     
     return self;
+}
+
+- (void)sort;
+{
+    _transfers = [self.transfers sortedArrayUsingComparator:^NSComparisonResult(PKTransfer *obj1, PKTransfer *obj2) {
+        return [obj2.createdAt compare:obj1.createdAt];
+    }];
 }
 
 @end

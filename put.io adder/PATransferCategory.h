@@ -14,5 +14,6 @@
 @property (strong, readonly) NSArray *transfers;
 
 - (id)initWithTitle:(NSString *)title transfers:(NSArray *)transfers;
+- (void)sort;
 
 @end
