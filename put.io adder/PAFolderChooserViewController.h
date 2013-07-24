@@ -10,8 +10,6 @@
 
 @interface PAFolderChooserViewController : UITableViewController
 
-- (id)initWithFolderIdentifier:(NSString *)folderIdentifier;
-
-@property (strong, readonly) NSString *folderIdentifier;
++ (UIViewController *)chooserViewController;
 
 @end

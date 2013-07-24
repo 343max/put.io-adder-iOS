@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import "PAPutIOController.h"
+
 #import "PAFolderChooserViewController.h"
 
 @interface PAFolderChooserViewController ()
@@ -14,17 +16,33 @@
 
 @implementation PAFolderChooserViewController
 
-- (id)initWithFolderIdentifier:(NSString *)folderIdentifier;
++ (UIViewController *)chooserViewController;
 {
-    self = [super initWithStyle:UITableViewStylePlain];
-    
-    if (self) {
-        _folderIdentifier = folderIdentifier;
-    }
-    
-    return self;
+    PAFolderChooserViewController *viewController = [[PAFolderChooserViewController alloc] initWithStyle:UITableViewStylePlain];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    return navigationController;
 }
 
+- (void)viewDidLoad;
+{
+    PKFolder *folder = [[PKFolder alloc] init];
+    folder.id = @"-1";
+    
+    [[PAPutIOController sharedController].putIOClient getFolderItems:folder
+                                                                    :^(NSArray *filesAndFolders)
+     {
+         NSArray *folders = [filesAndFolders select:^BOOL(id obj) {
+             return [obj isKindOfClass:[PKFolder class]];
+         }];
+         
+         NSLog(@"folders: %@", folders);
+     }
+                                                             failure:^(NSError *error)
+     {
+#warning handle the error!
+         NSLog(@"error: %@", error);
+     }];
+}
 
 #pragma mark - Table view data source
 
