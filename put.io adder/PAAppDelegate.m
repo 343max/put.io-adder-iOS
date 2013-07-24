@@ -24,6 +24,8 @@
     PATransfersViewController *transfersViewController = [[PATransfersViewController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:transfersViewController];
     
+    self.window.tintColor = [UIColor colorWithRed:0.465 green:0.648 blue:0.023 alpha:1.000];
+    
     self.navigationController = navigationController;
     self.window.rootViewController = navigationController;
     
