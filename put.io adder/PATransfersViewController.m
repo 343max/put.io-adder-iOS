@@ -8,6 +8,7 @@
 
 #import "PAPutIOController.h"
 #import "PATransferCategory.h"
+#import "LSRoundProgressView.h"
 
 #import "PATransfersViewController.h"
 
@@ -228,6 +229,15 @@
         cell.detailTextLabel.text = transfer.statusMessage;
     } else {
         cell.detailTextLabel.text = nil;
+    }
+    
+    if (transfer.transferStatus == PKTransferStatusDownloading) {
+        LSRoundProgressView *progressView = [[LSRoundProgressView alloc] initWithFrame:CGRectMake(0.0, 0.0, 38.0, 38.0)];
+        progressView.color = progressView.tintColor;
+        progressView.progress = [transfer.percentDone floatValue] / 100.0;
+        cell.accessoryView = progressView;
+    } else {
+        cell.accessoryView = nil;
     }
     
     return cell;
