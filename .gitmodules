@@ -1,0 +1,3 @@
+[submodule "External/PutioKit"]
+	path = External/PutioKit
+	url = git@github.com:343max/PutioKit.git

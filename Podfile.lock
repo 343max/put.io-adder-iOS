@@ -10,11 +10,11 @@ PODS:
 DEPENDENCIES:
   - BlocksKit (HEAD)
   - NSObject+Expectation
-  - PutioKit (from `git@github.com:PutioKit/PutioKit.git`)
+  - PutioKit (from `External/PutioKit`)
 
 EXTERNAL SOURCES:
   PutioKit:
-    :git: git@github.com:PutioKit/PutioKit.git
+    :path: External/PutioKit
 
 SPEC CHECKSUMS:
   AFNetworking: 9ec8aafb9269236a7630bd8d9838ce2ba30fa2a0
@@ -23,4 +23,4 @@ SPEC CHECKSUMS:
   NSObject+Expectation: 7acea14a0ac731cb78b9402ac3d314327bd6a143
   PutioKit: de585b6dc650841e4199372a20fb821d286399ef
 
-COCOAPODS: 0.22.2
+COCOAPODS: 0.22.3
