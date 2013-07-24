@@ -69,19 +69,34 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
 
 - (void)addTorrent:(NSURL *)URL;
 {
-    [self.putIOClient requestTorrentOrMagnetURLAtPath:URL.absoluteString
-                                                     :^(id userInfoObject) {
-                                                         NSLog(@"complete: %@", userInfoObject);
-                                                         [[NSNotificationCenter defaultCenter] postNotificationName:PAPutIOControllerTransfersDidChangeNotification
-                                                                                                             object:nil];
-                                                     } addFailure:^{
+    void(^onComplete)(id userInfoObject) = ^(id userInfoObject) {
+        NSLog(@"complete: %@", userInfoObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:PAPutIOControllerTransfersDidChangeNotification
+                                                            object:nil];
+    };
+    
+    void(^onAddFailure)(void) = ^(void) {
 #warning totaly incomplete
-                                                         NSLog(@"something did go wrong");
-
-                                                     } networkFailure:^(NSError *error) {
+        NSLog(@"something did go wrong");
+    };
+    
+    void(^onNetworkFailure)(NSError *error) = ^(NSError *error) {
 #warning incomplete
-                                                         NSLog(@"network error: %@", error);
-                                                     }];
+        NSLog(@"network error: %@", error);
+
+    };
+    
+    if ([URL isFileURL]) {
+        [self.putIOClient uploadFile:URL.path
+                                    :onComplete
+                          addFailure:onAddFailure
+                      networkFailure:onNetworkFailure];
+    } else {
+        [self.putIOClient requestTorrentOrMagnetURLAtPath:URL.absoluteString
+                                                         :onComplete
+                                               addFailure:onAddFailure
+                                           networkFailure:onNetworkFailure];
+    }
 }
 
 - (BOOL)isTorrentURL:(NSURL *)URL;
