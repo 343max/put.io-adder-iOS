@@ -221,8 +221,14 @@
     }
     
     PKTransfer *transfer = [self tranferForIndexPath:indexPath];
+    cell.textLabel.textColor = (transfer.transferStatus == PKTransferStatusCompleted ? [UIColor grayColor] : [UIColor blackColor]);
     cell.textLabel.text = transfer.name;
-    cell.detailTextLabel.text = transfer.statusMessage;
+    
+    if (transfer.transferStatus != PKTransferStatusCompleted && transfer.transferStatus != PKTransferStatusQueued) {
+        cell.detailTextLabel.text = transfer.statusMessage;
+    } else {
+        cell.detailTextLabel.text = nil;
+    }
     
     return cell;
 }
