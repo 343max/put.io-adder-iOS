@@ -20,6 +20,8 @@
 - (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
 - (PATransferCategory *)categoryForSection:(NSInteger)section;
 
+- (void)addTorrent:(id)sender;
+
 @end
 
 @implementation PATransfersViewController
@@ -34,6 +36,10 @@
                                                  selector:@selector(reloadTransfers)
                                                      name:PAPutIOControllerTransfersDidChangeNotification
                                                    object:nil];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                               target:self
+                                                                                               action:@selector(addTorrent:)];
     }
     return self;
 }
@@ -140,6 +146,37 @@
     return [self categoryForSection:indexPath.section].transfers[indexPath.row];
 }
 
+- (void)addTorrent:(id)sender;
+{
+    UIAlertView *alertView = [UIAlertView alertViewWithTitle:NSLocalizedString(@"Add torrent or magnet URL:", nil)];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    __weak UITextField *URLTextField = [alertView textFieldAtIndex:0];
+    URLTextField.placeholder = NSLocalizedString(@"http://link.to.the/torrent.URL", nil);
+    URLTextField.keyboardType = UIKeyboardTypeURL;
+    
+    NSURL *pasteboradURL = [NSURL URLWithString:[UIPasteboard generalPasteboard].string];
+    if ([[PAPutIOController sharedController] isTorrentURL:pasteboradURL]) {
+        URLTextField.text = pasteboradURL.absoluteString;
+    }
+    
+    [alertView addButtonWithTitle:NSLocalizedString(@"Cancel", nil)
+                          handler:nil];
+    
+    [alertView addButtonWithTitle:NSLocalizedString(@"Add", nil)
+                          handler:^{
+                              NSURL *URL = [NSURL URLWithString:URLTextField.text];
+                              
+                              if ([[PAPutIOController sharedController] isTorrentURL:URL]) {
+                                  [[PAPutIOController sharedController] addTorrent:URL];
+                              }
+                          }];
+    
+    alertView.cancelButtonIndex = 0;
+    
+    [alertView show];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -173,6 +210,10 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return NO;
+}
 
 
 @end

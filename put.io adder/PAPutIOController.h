@@ -19,6 +19,7 @@ extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 @property (strong, readonly) V2PutIOAPIClient *putIOClient;
 
 - (UIViewController *)authenticationViewController;
-- (void)downloadFileAtMagnetURL:(NSURL *)magnetURL;
+- (void)addTorrent:(NSURL *)URL;
+- (BOOL)isTorrentURL:(NSURL *)URL;
 
 @end

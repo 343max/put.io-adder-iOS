@@ -67,9 +67,9 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     return navigationController;
 }
 
-- (void)downloadFileAtMagnetURL:(NSURL *)magnetURL;
+- (void)addTorrent:(NSURL *)URL;
 {
-    [self.putIOClient requestTorrentOrMagnetURLAtPath:magnetURL.absoluteString
+    [self.putIOClient requestTorrentOrMagnetURLAtPath:URL.absoluteString
                                                      :^(id userInfoObject) {
                                                          NSLog(@"complete: %@", userInfoObject);
                                                          [[NSNotificationCenter defaultCenter] postNotificationName:PAPutIOControllerTransfersDidChangeNotification
@@ -82,6 +82,11 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
 #warning incomplete
                                                          NSLog(@"network error: %@", error);
                                                      }];
+}
+
+- (BOOL)isTorrentURL:(NSURL *)URL;
+{
+    return [URL.scheme isEqualToString:@"magnet"] || [URL.scheme isEqualToString:@"http"] || [URL.scheme isEqualToString:@"https"];
 }
 
 @end
