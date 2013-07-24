@@ -31,6 +31,10 @@
         self.accessoryView = progressView;
     }
 
+    if (transfer.transferStatus == PKTransferStatusCompleted) {
+        self.imageView.image = [[UIImage imageNamed:@"CheckMark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        self.imageView.tintColor = self.textLabel.textColor;
+    }
 }
 
 @end
