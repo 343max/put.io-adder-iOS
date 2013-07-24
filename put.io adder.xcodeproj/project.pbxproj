@@ -13,12 +13,10 @@
 		50664B79179E86CC00E403D8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50664B77179E86CC00E403D8 /* InfoPlist.strings */; };
 		50664B7B179E86CC00E403D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50664B7A179E86CC00E403D8 /* main.m */; };
 		50664B7F179E86CC00E403D8 /* PAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50664B7E179E86CC00E403D8 /* PAAppDelegate.m */; };
-		50664B81179E86CC00E403D8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 50664B80179E86CC00E403D8 /* Default.png */; };
-		50664B83179E86CC00E403D8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50664B82179E86CC00E403D8 /* Default@2x.png */; };
-		50664B85179E86CC00E403D8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50664B84179E86CC00E403D8 /* Default-568h@2x.png */; };
 		50728929179EDD2B00235948 /* PAPutIOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50728928179EDD2B00235948 /* PAPutIOController.m */; };
 		5072892F179EE25700235948 /* PATransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5072892E179EE25700235948 /* PATransfersViewController.m */; };
 		50728932179EF35C00235948 /* PATransferCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 50728931179EF35C00235948 /* PATransferCategory.m */; };
+		50728934179FD79C00235948 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50728933179FD79C00235948 /* Images.xcassets */; };
 		FFDA42568C8048C99F40A4FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6D61ED720F42DD9637D512 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -33,15 +31,13 @@
 		50664B7C179E86CC00E403D8 /* put.io adder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "put.io adder-Prefix.pch"; sourceTree = "<group>"; };
 		50664B7D179E86CC00E403D8 /* PAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PAAppDelegate.h; sourceTree = "<group>"; };
 		50664B7E179E86CC00E403D8 /* PAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PAAppDelegate.m; sourceTree = "<group>"; };
-		50664B80179E86CC00E403D8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		50664B82179E86CC00E403D8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		50664B84179E86CC00E403D8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		50728927179EDD2B00235948 /* PAPutIOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPutIOController.h; sourceTree = "<group>"; };
 		50728928179EDD2B00235948 /* PAPutIOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPutIOController.m; sourceTree = "<group>"; };
 		5072892D179EE25700235948 /* PATransfersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PATransfersViewController.h; sourceTree = "<group>"; };
 		5072892E179EE25700235948 /* PATransfersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PATransfersViewController.m; sourceTree = "<group>"; };
 		50728930179EF35C00235948 /* PATransferCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PATransferCategory.h; sourceTree = "<group>"; };
 		50728931179EF35C00235948 /* PATransferCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PATransferCategory.m; sourceTree = "<group>"; };
+		50728933179FD79C00235948 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7F6D61ED720F42DD9637D512 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -102,6 +98,7 @@
 				5072892E179EE25700235948 /* PATransfersViewController.m */,
 				50728930179EF35C00235948 /* PATransferCategory.h */,
 				50728931179EF35C00235948 /* PATransferCategory.m */,
+				50728933179FD79C00235948 /* Images.xcassets */,
 			);
 			path = "put.io adder";
 			sourceTree = "<group>";
@@ -113,9 +110,6 @@
 				50664B77179E86CC00E403D8 /* InfoPlist.strings */,
 				50664B7A179E86CC00E403D8 /* main.m */,
 				50664B7C179E86CC00E403D8 /* put.io adder-Prefix.pch */,
-				50664B80179E86CC00E403D8 /* Default.png */,
-				50664B82179E86CC00E403D8 /* Default@2x.png */,
-				50664B84179E86CC00E403D8 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -175,9 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50664B79179E86CC00E403D8 /* InfoPlist.strings in Resources */,
-				50664B81179E86CC00E403D8 /* Default.png in Resources */,
-				50664B83179E86CC00E403D8 /* Default@2x.png in Resources */,
-				50664B85179E86CC00E403D8 /* Default-568h@2x.png in Resources */,
+				50728934179FD79C00235948 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +295,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "put.io adder/put.io adder-Prefix.pch";
 				INFOPLIST_FILE = "put.io adder/put.io adder-Info.plist";
@@ -316,6 +310,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "put.io adder/put.io adder-Prefix.pch";
 				INFOPLIST_FILE = "put.io adder/put.io adder-Info.plist";
