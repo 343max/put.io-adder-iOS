@@ -19,7 +19,7 @@
 		50728932179EF35C00235948 /* PATransferCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 50728931179EF35C00235948 /* PATransferCategory.m */; };
 		50728934179FD79C00235948 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50728933179FD79C00235948 /* Images.xcassets */; };
 		5072893B17A0144E00235948 /* LSRoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5072893A17A0144E00235948 /* LSRoundProgressView.m */; };
-		50B1BD2F17A0872B00ACF55F /* PAFolderContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1BD2E17A0872B00ACF55F /* PAFolderContentViewController.m */; };
+		50B1BD2F17A0872B00ACF55F /* PAFolderChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1BD2E17A0872B00ACF55F /* PAFolderChooserViewController.m */; };
 		FFDA42568C8048C99F40A4FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6D61ED720F42DD9637D512 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -45,8 +45,8 @@
 		50728933179FD79C00235948 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5072893917A0144E00235948 /* LSRoundProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSRoundProgressView.h; sourceTree = "<group>"; };
 		5072893A17A0144E00235948 /* LSRoundProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSRoundProgressView.m; sourceTree = "<group>"; };
-		50B1BD2D17A0872B00ACF55F /* PAFolderContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFolderContentViewController.h; sourceTree = "<group>"; };
-		50B1BD2E17A0872B00ACF55F /* PAFolderContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFolderContentViewController.m; sourceTree = "<group>"; };
+		50B1BD2D17A0872B00ACF55F /* PAFolderChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFolderChooserViewController.h; sourceTree = "<group>"; };
+		50B1BD2E17A0872B00ACF55F /* PAFolderChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFolderChooserViewController.m; sourceTree = "<group>"; };
 		7F6D61ED720F42DD9637D512 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -139,8 +139,8 @@
 		50B1BD2C17A086FF00ACF55F /* Folder */ = {
 			isa = PBXGroup;
 			children = (
-				50B1BD2D17A0872B00ACF55F /* PAFolderContentViewController.h */,
-				50B1BD2E17A0872B00ACF55F /* PAFolderContentViewController.m */,
+				50B1BD2D17A0872B00ACF55F /* PAFolderChooserViewController.h */,
+				50B1BD2E17A0872B00ACF55F /* PAFolderChooserViewController.m */,
 			);
 			name = Folder;
 			sourceTree = "<group>";
@@ -245,7 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50664B7B179E86CC00E403D8 /* main.m in Sources */,
-				50B1BD2F17A0872B00ACF55F /* PAFolderContentViewController.m in Sources */,
+				50B1BD2F17A0872B00ACF55F /* PAFolderChooserViewController.m in Sources */,
 				50664B7F179E86CC00E403D8 /* PAAppDelegate.m in Sources */,
 				5072892F179EE25700235948 /* PATransfersViewController.m in Sources */,
 				5072893B17A0144E00235948 /* LSRoundProgressView.m in Sources */,

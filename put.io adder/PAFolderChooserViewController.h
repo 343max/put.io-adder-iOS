@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PAFolderContentViewController : UITableViewController
+@interface PAFolderChooserViewController : UITableViewController
 
-- (id)initWithFolderIdentifier:(NSString *)folderIdentifier showFoldersOnly:(BOOL)showFoldersOnly;
+- (id)initWithFolderIdentifier:(NSString *)folderIdentifier;
 
 @property (strong, readonly) NSString *folderIdentifier;
-@property (assign, readonly) BOOL showFoldersOnly;
 
 @end

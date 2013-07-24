@@ -6,21 +6,20 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
-#import "PAFolderContentViewController.h"
+#import "PAFolderChooserViewController.h"
 
-@interface PAFolderContentViewController ()
+@interface PAFolderChooserViewController ()
 
 @end
 
-@implementation PAFolderContentViewController
+@implementation PAFolderChooserViewController
 
-- (id)initWithFolderIdentifier:(NSString *)folderIdentifier showFoldersOnly:(BOOL)showFoldersOnly;
+- (id)initWithFolderIdentifier:(NSString *)folderIdentifier;
 {
     self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
         _folderIdentifier = folderIdentifier;
-        _showFoldersOnly = showFoldersOnly;
     }
     
     return self;
