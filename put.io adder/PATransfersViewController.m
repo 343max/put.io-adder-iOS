@@ -121,10 +121,11 @@
         [transfersDict[status] addObject:transfer];
     }];
     
-    NSArray *order = @[@(PKTransferStatusUnknown), @(PKTransferStatusError), @(PKTransferStatusDownloading), @(PKTransferStatusSeeding), @(PKTransferStatusCompleted)];
+    NSArray *order = @[@(PKTransferStatusUnknown), @(PKTransferStatusError), @(PKTransferStatusQueued), @(PKTransferStatusDownloading), @(PKTransferStatusSeeding), @(PKTransferStatusCompleted)];
     
     NSDictionary *titles = @{@(PKTransferStatusUnknown): NSLocalizedString(@"Unknown", nil),
                              @(PKTransferStatusError): NSLocalizedString(@"Error", nil),
+                             @(PKTransferStatusQueued): NSLocalizedString(@"Queued", nil),
                              @(PKTransferStatusDownloading): NSLocalizedString(@"Downloading", nil),
                              @(PKTransferStatusSeeding): NSLocalizedString(@"Seeding", nil),
                              @(PKTransferStatusCompleted): NSLocalizedString(@"Completed", nil)};
