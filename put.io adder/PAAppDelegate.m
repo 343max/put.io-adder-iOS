@@ -44,7 +44,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 {
-    if ([url.scheme isEqualToString:@"magnet"]) {
+    if ([url.scheme isEqualToString:@"magnet"] || [url isFileURL]) {
         [[PAPutIOController sharedController] addTorrent:url];
         return YES;
     }
