@@ -104,8 +104,9 @@
         }
         
         [transfersDict[status] addObject:transfer];
-        
     }];
+    
+    NSArray *order = @[@(PKTransferStatusUnknown), @(PKTransferStatusError), @(PKTransferStatusDownloading), @(PKTransferStatusSeeding), @(PKTransferStatusCompleted)];
     
     NSDictionary *titles = @{@(PKTransferStatusUnknown): NSLocalizedString(@"Unknown", nil),
                              @(PKTransferStatusError): NSLocalizedString(@"Error", nil),
@@ -115,9 +116,9 @@
     
     NSMutableArray *categories = [[NSMutableArray alloc] initWithCapacity:transfersDict.count];
     
-    [titles each:^(NSNumber *status, NSString *title) {
-       PATransferCategory *category = [[PATransferCategory alloc] initWithTitle:title
-                                                                      transfers:transfersDict[status]];
+    [order each:^(NSNumber *status) {
+        PATransferCategory *category = [[PATransferCategory alloc] initWithTitle:titles[status]
+                                                                       transfers:transfersDict[status]];
         
         if (category.transfers.count != 0) {
             [categories addObject:category];
