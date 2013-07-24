@@ -8,7 +8,7 @@
 
 #import "PAPutIOController.h"
 #import "PATransferCategory.h"
-#import "LSRoundProgressView.h"
+#import "PATransferCell.h"
 
 #import "PATransfersViewController.h"
 
@@ -214,31 +214,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    PKTransfer *transfer = [self tranferForIndexPath:indexPath];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %i", transfer.transferStatus];
+    PATransferCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[PATransferCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    PKTransfer *transfer = [self tranferForIndexPath:indexPath];
-    cell.textLabel.textColor = (transfer.transferStatus == PKTransferStatusCompleted ? [UIColor grayColor] : [UIColor blackColor]);
-    cell.textLabel.text = transfer.name;
-    
-    if (transfer.transferStatus != PKTransferStatusCompleted && transfer.transferStatus != PKTransferStatusQueued) {
-        cell.detailTextLabel.text = transfer.statusMessage;
-    } else {
-        cell.detailTextLabel.text = nil;
-    }
-    
-    if (transfer.transferStatus == PKTransferStatusDownloading) {
-        LSRoundProgressView *progressView = [[LSRoundProgressView alloc] initWithFrame:CGRectMake(0.0, 0.0, 38.0, 38.0)];
-        progressView.color = progressView.tintColor;
-        progressView.progress = [transfer.percentDone floatValue] / 100.0;
-        cell.accessoryView = progressView;
-    } else {
-        cell.accessoryView = nil;
-    }
+    cell.transfer = transfer;
     
     return cell;
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5019463017A0335300F1EC8E /* PATransferCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019462F17A0335300F1EC8E /* PATransferCell.m */; };
 		50664B6F179E86CC00E403D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50664B6E179E86CC00E403D8 /* UIKit.framework */; };
 		50664B71179E86CC00E403D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50664B70179E86CC00E403D8 /* Foundation.framework */; };
 		50664B73179E86CC00E403D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50664B72179E86CC00E403D8 /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5019462E17A0335300F1EC8E /* PATransferCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PATransferCell.h; sourceTree = "<group>"; };
+		5019462F17A0335300F1EC8E /* PATransferCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PATransferCell.m; sourceTree = "<group>"; };
 		50664B6B179E86CC00E403D8 /* put.io adder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "put.io adder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50664B6E179E86CC00E403D8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		50664B70179E86CC00E403D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -104,6 +107,8 @@
 				5072893917A0144E00235948 /* LSRoundProgressView.h */,
 				5072893A17A0144E00235948 /* LSRoundProgressView.m */,
 				50728933179FD79C00235948 /* Images.xcassets */,
+				5019462E17A0335300F1EC8E /* PATransferCell.h */,
+				5019462F17A0335300F1EC8E /* PATransferCell.m */,
 			);
 			path = "put.io adder";
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				5072892F179EE25700235948 /* PATransfersViewController.m in Sources */,
 				5072893B17A0144E00235948 /* LSRoundProgressView.m in Sources */,
 				50728932179EF35C00235948 /* PATransferCategory.m in Sources */,
+				5019463017A0335300F1EC8E /* PATransferCell.m in Sources */,
 				50728929179EDD2B00235948 /* PAPutIOController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
