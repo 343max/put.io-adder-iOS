@@ -88,6 +88,7 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     
     if ([URL isFileURL]) {
         [self.putIOClient uploadFile:URL.path
+                            toFolder:folder
                             callback:onComplete
                           addFailure:onAddFailure
                       networkFailure:onNetworkFailure];
