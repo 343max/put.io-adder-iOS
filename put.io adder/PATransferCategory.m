@@ -12,13 +12,14 @@
 
 @implementation PATransferCategory
 
-- (id)initWithTitle:(NSString *)title transfers:(NSArray *)transfers;
+- (id)initWithTitle:(NSString *)title transfers:(NSArray *)transfers statusCode:(PKTransferStatus)statusCode;
 {
     self = [super init];
     
     if (self) {
         _title = title;
         _transfers = transfers;
+        _statusCode = statusCode;
     }
     
     return self;
