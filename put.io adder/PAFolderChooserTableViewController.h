@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class PAAddTorrentViewController;
+
 @interface PAFolderChooserTableViewController : UITableViewController
+
+@property (strong) PAAddTorrentViewController *addTorrentViewController;
 
 @end

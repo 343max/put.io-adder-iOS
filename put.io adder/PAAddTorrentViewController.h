@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class PKFolder;
+
 @interface PAAddTorrentViewController : UITableViewController
 
 + (UIViewController *)addTorrentViewController;
+
+@property (strong, nonatomic) PKFolder *selectedFolder;
 
 @end

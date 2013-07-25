@@ -6,11 +6,17 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <PutioKit/PKFolder.h>
+
 #import "PAAddTorrentViewController.h"
+
+#import "PAFolderChooserTableViewController.h"
 
 @interface PAAddTorrentViewController ()
 
 @property (strong) NSURL *torrentURL;
+
+@property (strong) NSString *text;
 
 @end
 
@@ -22,7 +28,25 @@
     return [[UINavigationController alloc] initWithRootViewController:viewController];
 }
 
+- (void)setSelectedFolder:(PKFolder *)selectedFolder;
+{
+    if (selectedFolder == _selectedFolder) return;
+    _selectedFolder = selectedFolder;
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
+
+- (id)initWithStyle:(UITableViewStyle)style;
+{
+    self = [super initWithStyle:style];
+    
+    if (self) {
+        self.title = NSLocalizedString(@"Download Torrent", nil);
+    }
+    
+    return self;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -60,7 +84,13 @@
             [cell addSubview:textField];
         }
     } else {
-        cell.textLabel.text = @"Choose Folder…";
+        if (self.selectedFolder == nil) {
+            cell.textLabel.text = @"Choose Folder…";
+        } else {
+            cell.textLabel.text = self.selectedFolder.name;
+            cell.imageView.image = [[UIImage imageNamed:@"Folder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        }
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
@@ -69,6 +99,15 @@
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return indexPath.section == 1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (indexPath.section == 1) {
+        PAFolderChooserTableViewController *viewController = [[PAFolderChooserTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        viewController.addTorrentViewController = self;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 @end

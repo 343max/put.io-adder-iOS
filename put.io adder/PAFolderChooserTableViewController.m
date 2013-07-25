@@ -7,6 +7,7 @@
 //
 
 #import "PAPutIOController.h"
+#import "PAAddTorrentViewController.h"
 
 #import "PAFolderChooserTableViewController.h"
 
@@ -25,7 +26,7 @@
     self = [super initWithStyle:style];
     
     if (self) {
-        self.title = NSLocalizedString(@"Choose folder:", nil);
+        self.title = NSLocalizedString(@"Choose Folder", nil);
     }
     
     return self;
@@ -128,6 +129,12 @@
     cell.textLabel.text = folder.name;
     cell.indentationLevel = folder.numberOfParentFolders;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    self.addTorrentViewController.selectedFolder = [self folderForIndexPath:indexPath];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
