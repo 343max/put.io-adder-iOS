@@ -7,6 +7,7 @@
 //
 
 #import <PutioKit/PKFolder.h>
+#import "PKFolder+RootFolder.h"
 
 #import "PAAddTorrentViewController.h"
 
@@ -43,6 +44,7 @@
     
     if (self) {
         self.title = NSLocalizedString(@"Download Torrent", nil);
+        self.selectedFolder = [PKFolder rootFolder];
     }
     
     return self;
@@ -84,12 +86,8 @@
             [cell addSubview:textField];
         }
     } else {
-        if (self.selectedFolder == nil) {
-            cell.textLabel.text = @"Choose Folder…";
-        } else {
-            cell.textLabel.text = self.selectedFolder.name;
-            cell.imageView.image = [[UIImage imageNamed:@"Folder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        }
+        cell.textLabel.text = self.selectedFolder.name;
+        cell.imageView.image = [[UIImage imageNamed:@"Folder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

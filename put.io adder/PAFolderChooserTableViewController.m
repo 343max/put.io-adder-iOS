@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import "PKFolder+RootFolder.h"
 #import "PAPutIOController.h"
 #import "PAAddTorrentViewController.h"
 
@@ -54,12 +55,16 @@
 }
 
 - (NSArray *)flatFoldersFromFolderDict:(NSDictionary *)foldersByParent
-                         forRootFolder:(NSString *)rootFolder
+                         forRootFolder:(NSString *)rootFolderIdentifer
                                atDepth:(NSInteger)depth;
 {
-    NSArray *folders = foldersByParent[rootFolder];
+    NSArray *folders = foldersByParent[rootFolderIdentifer];
     
     NSMutableArray *flatFolders = [[NSMutableArray alloc] initWithCapacity:folders.count];
+    
+    if ([rootFolderIdentifer isEqualToString:[PKFolder rootFolder].id]) {
+        [flatFolders addObject:[PKFolder rootFolder]];
+    }
     
     [folders each:^(PKFolder *folder) {
         folder.numberOfParentFolders = depth;
@@ -90,10 +95,16 @@
         }];
     }];
     
-    _folders = [self flatFoldersFromFolderDict:foldersByParent forRootFolder:@"0" atDepth:0];
-    
+    _folders = [self flatFoldersFromFolderDict:foldersByParent forRootFolder:[PKFolder rootFolder].id atDepth:0];
     
     [self.tableView reloadData];
+
+    [_folders each:^(PKFolder *folder) {
+        if ([folder.id isEqualToString:self.addTorrentViewController.selectedFolder.id]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_folders indexOfObject:folder] inSection:0];
+            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+        }
+    }];
 }
 
 - (PKFolder *)folderForIndexPath:(NSIndexPath *)indexPath;
@@ -127,7 +138,7 @@
     PKFolder *folder = [self folderForIndexPath:indexPath];
     
     cell.textLabel.text = folder.name;
-    cell.indentationLevel = folder.numberOfParentFolders;
+    cell.indentationLevel = folder.numberOfParentFolders + 1;
     return cell;
 }
 
