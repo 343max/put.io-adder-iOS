@@ -1,5 +1,5 @@
 //
-//  PAFolderContentViewController.h
+//  PAFolderChooserViewController.h
 //  put.io adder
 //
 //  Created by Max Winde on 25.07.13.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PAFolderChooserViewController : UITableViewController
+@interface PAFolderChooserViewController : UINavigationController
 
-+ (UIViewController *)chooserViewController;
++ (UIViewController *)folderChooserViewController;
 
 @end
