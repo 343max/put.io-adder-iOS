@@ -88,14 +88,14 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     
     if ([URL isFileURL]) {
         [self.putIOClient uploadFile:URL.path
-                                    :onComplete
+                            callback:onComplete
                           addFailure:onAddFailure
                       networkFailure:onNetworkFailure];
     } else {
-        [self.putIOClient requestTorrentOrMagnetURLAtPath:URL.absoluteString
-                                                         :onComplete
-                                               addFailure:onAddFailure
-                                           networkFailure:onNetworkFailure];
+        [self.putIOClient requestTorrentOrMagnetURL:URL
+                                           callback:onComplete
+                                         addFailure:onAddFailure
+                                     networkFailure:onNetworkFailure];
     }
 }
 
