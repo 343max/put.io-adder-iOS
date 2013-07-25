@@ -121,6 +121,7 @@
     if (indexPath.section == 0) {
         if ([self.torrentURL isFileURL]) {
             cell.textLabel.text = self.torrentURL.lastPathComponent;
+            cell.imageView.image = [[UIImage imageNamed:@"File"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         } else {
             CGRect frame = cell.bounds;
             frame.origin.x += 15;
