@@ -7,6 +7,7 @@
 //
 
 #import "PAPutIOController.h"
+#import "PAAddTorrentViewController.h"
 #import "PATransferCategory.h"
 #import "PATransferCell.h"
 
@@ -174,33 +175,9 @@
 
 - (void)addTorrent:(id)sender;
 {
-    UIAlertView *alertView = [UIAlertView alertViewWithTitle:NSLocalizedString(@"Add torrent or magnet URL:", nil)];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    
-    __weak UITextField *URLTextField = [alertView textFieldAtIndex:0];
-    URLTextField.placeholder = NSLocalizedString(@"http://link.to.the/torrent.URL", nil);
-    URLTextField.keyboardType = UIKeyboardTypeURL;
-    
-    NSURL *pasteboradURL = [NSURL URLWithString:[UIPasteboard generalPasteboard].string];
-    if ([[PAPutIOController sharedController] isTorrentURL:pasteboradURL]) {
-        URLTextField.text = pasteboradURL.absoluteString;
-    }
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"Cancel", nil)
-                          handler:nil];
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"Add", nil)
-                          handler:^{
-                              NSURL *URL = [NSURL URLWithString:URLTextField.text];
-                              
-                              if ([[PAPutIOController sharedController] isTorrentURL:URL]) {
-                                  [[PAPutIOController sharedController] addTorrent:URL];
-                              }
-                          }];
-    
-    alertView.cancelButtonIndex = 0;
-    
-    [alertView show];
+    [self.navigationController presentViewController:[PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:nil]
+                                            animated:YES
+                                          completion:nil];
 }
 
 #pragma mark - Table view data source
