@@ -57,7 +57,7 @@
     NSMutableArray *flatFolders = [[NSMutableArray alloc] initWithCapacity:folders.count];
     
     [folders each:^(PKFolder *folder) {
-        folder.depth = depth;
+        folder.numberOfParentFolders = depth;
         [flatFolders addObject:folder];
         [flatFolders addObjectsFromArray:[self flatFoldersFromFolderDict:foldersByParent
                                                            forRootFolder:folder.id
@@ -122,7 +122,7 @@
     PKFolder *folder = [self folderForIndexPath:indexPath];
     
     cell.textLabel.text = folder.name;
-    cell.indentationLevel = folder.depth;
+    cell.indentationLevel = folder.numberOfParentFolders;
     return cell;
 }
 
