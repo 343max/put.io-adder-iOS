@@ -147,10 +147,10 @@
 		50B1BD2C17A086FF00ACF55F /* Folder */ = {
 			isa = PBXGroup;
 			children = (
-				50B1BD2D17A0872B00ACF55F /* PAFolderChooserTableViewController.h */,
-				50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */,
 				508C5DA417A15E2F0097FAAB /* PAAddTorrentViewController.h */,
 				508C5DA517A15E2F0097FAAB /* PAAddTorrentViewController.m */,
+				50B1BD2D17A0872B00ACF55F /* PAFolderChooserTableViewController.h */,
+				50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */,
 			);
 			name = Folder;
 			sourceTree = "<group>";

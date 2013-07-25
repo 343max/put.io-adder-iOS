@@ -11,5 +11,8 @@
 @interface PKFolder (RootFolder)
 
 + (PKFolder *)rootFolder;
++ (PKFolder *)folderWithDictionary:(NSDictionary *)dictionary;
+
+- (NSDictionary *)dictionary;
 
 @end

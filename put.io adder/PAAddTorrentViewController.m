@@ -19,13 +19,15 @@
 
 @property (strong) NSString *text;
 
+@property (strong) UIBarButtonItem *addButton;
+
 @end
 
 @implementation PAAddTorrentViewController
 
-+ (UIViewController *)addTorrentViewController;
++ (UIViewController *)addTorrentViewControllerWithTorrentURL:(NSURL *)torrentURL;
 {
-    PAAddTorrentViewController *viewController = [[PAAddTorrentViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    PAAddTorrentViewController *viewController = [[PAAddTorrentViewController alloc] initWithTorrentURL:torrentURL];
     return [[UINavigationController alloc] initWithRootViewController:viewController];
 }
 
@@ -34,17 +36,46 @@
     if (selectedFolder == _selectedFolder) return;
     _selectedFolder = selectedFolder;
     [self.tableView reloadData];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:selectedFolder.dictionary forKey:@"selectedFolder"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)addTorrent:(id)sender;
+{
+    
 }
 
 #pragma mark - Table view data source
 
-- (id)initWithStyle:(UITableViewStyle)style;
+- (id)initWithTorrentURL:(NSURL *)torrentURL;
 {
-    self = [super initWithStyle:style];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
+        self.torrentURL = torrentURL;
         self.title = NSLocalizedString(@"Download Torrent", nil);
-        self.selectedFolder = [PKFolder rootFolder];
+        
+        NSDictionary *selectedFolderDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFolder"];
+        PKFolder *folder = [PKFolder folderWithDictionary:selectedFolderDict];
+        if (folder) {
+            self.selectedFolder = folder;
+        } else {
+            self.selectedFolder = [PKFolder rootFolder];
+        }
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                             handler:^(id sender)
+                                                 {
+                                                     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                                 }];
+        
+        self.addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", nil)
+                                                          style:UIBarButtonItemStyleDone
+                                                         target:self
+                                                         action:@selector(addTorrent:)];
+        self.addButton.enabled = [self.torrentURL isFileURL];
+        self.navigationItem.rightBarButtonItem = self.addButton;
     }
     
     return self;

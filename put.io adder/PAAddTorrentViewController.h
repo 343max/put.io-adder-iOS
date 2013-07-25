@@ -12,7 +12,9 @@
 
 @interface PAAddTorrentViewController : UITableViewController
 
-+ (UIViewController *)addTorrentViewController;
++ (UIViewController *)addTorrentViewControllerWithTorrentURL:(NSURL *)torrentURL;
+
+- (id)initWithTorrentURL:(NSURL *)torrentURL;
 
 @property (strong, nonatomic) PKFolder *selectedFolder;
 
