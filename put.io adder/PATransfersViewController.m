@@ -200,7 +200,11 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
 {
-    NSLog(@"stop! %@", indexPath);
+    PKTransfer *tranfer = [self tranferForIndexPath:indexPath];
+    [[PAPutIOController sharedController].putIOClient cancelTransfer:tranfer
+                                                                    :^{
+                                                                        [self reloadTransfers];
+                                                                    } failure:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
