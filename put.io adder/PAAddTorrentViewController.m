@@ -130,6 +130,10 @@
             textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             textField.placeholder = NSLocalizedString(@"Torrent or Magnet URL", nil);
             textField.text = self.torrentURLString;
+            [textField addEventHandler:^(UITextField *textField) {
+                self.torrentURLString = textField.text;
+                self.addButton.enabled = [self isValidTorrentURLString:self.torrentURLString];
+            } forControlEvents:UIControlEventEditingChanged];
             [cell addSubview:textField];
         }
     } else {
