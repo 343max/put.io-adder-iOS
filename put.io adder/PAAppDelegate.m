@@ -10,7 +10,7 @@
 
 #import "PAPutIOController.h"
 
-#import "PAFolderChooserViewController.h"
+#import "PAAddTorrentViewController.h"
 #import "PATransfersViewController.h"
 
 #import "PAAppDelegate.h"
@@ -43,7 +43,7 @@
     double delayInSeconds = 0.6;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.navigationController presentViewController:[PAFolderChooserViewController folderChooserViewController]
+        [self.navigationController presentViewController:[PAAddTorrentViewController addTorrentViewController]
                                                 animated:YES
                                               completion:nil];
     });
