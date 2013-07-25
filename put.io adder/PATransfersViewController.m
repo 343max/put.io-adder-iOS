@@ -8,6 +8,7 @@
 
 #import "PAPutIOController.h"
 #import "PAAddTorrentViewController.h"
+#import "PASearchViewController.h"
 #import "PATransferCategory.h"
 #import "PATransferCell.h"
 
@@ -45,6 +46,10 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                                target:self
                                                                                                action:@selector(addTorrent:)];
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                                              target:self
+                                                                                              action:@selector(startSearch:)];
     }
     return self;
 }
@@ -191,6 +196,13 @@
 - (void)addTorrent:(id)sender;
 {
     [self.navigationController presentViewController:[PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:nil]
+                                            animated:YES
+                                          completion:nil];
+}
+
+- (void)startSearch:(id)sender;
+{
+    [self.navigationController presentViewController:[PASearchViewController searchViewController]
                                             animated:YES
                                           completion:nil];
 }
