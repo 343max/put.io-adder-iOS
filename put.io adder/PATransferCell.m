@@ -31,6 +31,16 @@
     }
 }
 
+- (void)stopButtonTapped:(id)sender;
+{
+    UITableView *tableView = (UITableView *)self.superview;
+    
+    if ([tableView.delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
+        NSIndexPath *indexPath = [tableView indexPathForCell:self];
+        [tableView.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+    }
+}
+
 - (void)setTransfer:(PKTransfer *)transfer;
 {
     if (transfer == _transfer) return;
@@ -45,10 +55,18 @@
     }
     
     if (transfer.transferStatus == PKTransferStatusDownloading) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 38.0, 38.0)];
+        [button setImage:[[UIImage imageNamed:@"Stop"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(stopButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        
         LSRoundProgressView *progressView = [[LSRoundProgressView alloc] initWithFrame:CGRectMake(8.0, 8.0, 22.0, 22.0)];
         progressView.alpha = 1.0;
         progressView.progress = [transfer.percentDone floatValue] / 100.0;
-        self.accessoryView = progressView;
+        progressView.userInteractionEnabled = NO;
+        [button addSubview:progressView];
+        
+        self.accessoryView = button;
         
         NSInteger secondsRemaining = [transfer.estimatedTime integerValue];
         NSString *remainingString;

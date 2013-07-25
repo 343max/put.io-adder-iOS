@@ -195,7 +195,13 @@
                                           completion:nil];
 }
 
+
 #pragma mark - Table view data source
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+{
+    NSLog(@"stop! %@", indexPath);
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
