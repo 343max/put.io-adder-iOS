@@ -67,7 +67,7 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     return navigationController;
 }
 
-- (void)addTorrent:(NSURL *)URL;
+- (void)downloadTorrent:(NSURL *)URL;
 {
     void(^onComplete)(id userInfoObject) = ^(id userInfoObject) {
         NSLog(@"complete: %@", userInfoObject);

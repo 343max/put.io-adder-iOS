@@ -45,7 +45,13 @@
 
 - (void)addTorrent:(id)sender;
 {
+    NSURL *torrentURL = self.torrentURL;
     
+    if (torrentURL == nil) {
+        torrentURL = [NSURL URLWithString:self.torrentURLString];
+    }
+    
+    [[PAPutIOController sharedController] downloadTorrent:torrentURL];
 }
 
 - (BOOL)isValidTorrentURLString:(NSString *)string;
