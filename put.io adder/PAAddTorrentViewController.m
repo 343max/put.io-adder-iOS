@@ -51,7 +51,9 @@
         torrentURL = [NSURL URLWithString:self.torrentURLString];
     }
     
-    [[PAPutIOController sharedController] downloadTorrent:torrentURL];
+    [[PAPutIOController sharedController] downloadTorrent:torrentURL toFolder:self.selectedFolder];
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)isValidTorrentURLString:(NSString *)string;
