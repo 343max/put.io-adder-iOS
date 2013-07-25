@@ -265,6 +265,7 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [[PAPutIOController sharedController].putIOClient cleanFinishedTransfersCallback:^(id JSON) {
             [self reloadTransfers];
+        } networkFailure:nil];
     });
 }
 
