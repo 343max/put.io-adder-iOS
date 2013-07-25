@@ -9,6 +9,8 @@
 #import <PutioKit/PKFolder.h>
 #import "PKFolder+RootFolder.h"
 
+#import "PAPutIOController.h"
+
 #import "PAAddTorrentViewController.h"
 
 #import "PAFolderChooserTableViewController.h"
@@ -17,7 +19,7 @@
 
 @property (strong) NSURL *torrentURL;
 
-@property (strong) NSString *text;
+@property (strong) NSString *torrentURLString;
 
 @property (strong) UIBarButtonItem *addButton;
 
@@ -46,6 +48,11 @@
     
 }
 
+- (BOOL)isValidTorrentURLString:(NSString *)string;
+{
+    return [[PAPutIOController sharedController] isTorrentURL:[NSURL URLWithString:string]];
+}
+
 #pragma mark - Table view data source
 
 - (id)initWithTorrentURL:(NSURL *)torrentURL;
@@ -53,7 +60,6 @@
     self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
-        self.torrentURL = torrentURL;
         self.title = NSLocalizedString(@"Download Torrent", nil);
         
         NSDictionary *selectedFolderDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFolder"];
@@ -74,8 +80,17 @@
                                                           style:UIBarButtonItemStyleDone
                                                          target:self
                                                          action:@selector(addTorrent:)];
-        self.addButton.enabled = [self.torrentURL isFileURL];
         self.navigationItem.rightBarButtonItem = self.addButton;
+        
+        if ([torrentURL isFileURL]) {
+            self.torrentURL = torrentURL;
+        } else if (torrentURL != nil) {
+            self.torrentURLString = torrentURL.absoluteString;
+        } else if ([self isValidTorrentURLString:[UIPasteboard generalPasteboard].string]) {
+            self.torrentURLString = [UIPasteboard generalPasteboard].string;
+        } else {
+            self.addButton.enabled = NO;
+        }
     }
     
     return self;
@@ -113,7 +128,7 @@
             UITextField *textField = [[UITextField alloc] initWithFrame:frame];
             textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             textField.placeholder = NSLocalizedString(@"Torrent or Magnet URL", nil);
-            textField.text = self.torrentURL.absoluteString;
+            textField.text = self.torrentURLString;
             [cell addSubview:textField];
         }
     } else {
