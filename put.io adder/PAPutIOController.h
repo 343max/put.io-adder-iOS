@@ -19,7 +19,7 @@ extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 @property (strong, readonly) V2PutIOAPIClient *putIOClient;
 
 - (UIViewController *)authenticationViewController;
-- (void)addTorrent:(NSURL *)URL;
+- (void)downloadTorrent:(NSURL *)URL toFolder:(PKFolder *)folder;
 - (BOOL)isTorrentURL:(NSURL *)URL;
 
 @end

@@ -12,8 +12,9 @@
 
 @property (strong, readonly) NSString *title;
 @property (strong, readonly) NSArray *transfers;
+@property (assign, readonly) PKTransferStatus statusCode;
 
-- (id)initWithTitle:(NSString *)title transfers:(NSArray *)transfers;
+- (id)initWithTitle:(NSString *)title transfers:(NSArray *)transfers statusCode:(PKTransferStatus)statusCode;
 - (void)sort;
 
 @end

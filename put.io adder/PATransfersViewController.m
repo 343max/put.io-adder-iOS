@@ -7,6 +7,7 @@
 //
 
 #import "PAPutIOController.h"
+#import "PAAddTorrentViewController.h"
 #import "PATransferCategory.h"
 #import "PATransferCell.h"
 
@@ -21,6 +22,8 @@
 - (void)reloadTransfers;
 - (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
 - (PATransferCategory *)categoryForSection:(NSInteger)section;
+
+- (BOOL)isClearCompletedCell:(NSIndexPath *)indexPath;
 
 - (void)addTorrent:(id)sender;
 
@@ -142,7 +145,8 @@
     
     [order each:^(NSNumber *status) {
         PATransferCategory *category = [[PATransferCategory alloc] initWithTitle:titles[status]
-                                                                       transfers:transfersDict[status]];
+                                                                       transfers:transfersDict[status]
+                                                                      statusCode:[status integerValue]];
         
         if (category.transfers.count != 0) {
             [category sort];
@@ -169,38 +173,26 @@
 
 - (PKTransfer *)tranferForIndexPath:(NSIndexPath *)indexPath;
 {
-    return [self categoryForSection:indexPath.section].transfers[indexPath.row];
+    PATransferCategory *cateogry = [self categoryForSection:indexPath.section];
+    
+    if (cateogry.transfers.count > indexPath.row) {
+        return cateogry.transfers[indexPath.row];
+    } else {
+        return nil;
+    }
+}
+
+- (BOOL)isClearCompletedCell:(NSIndexPath *)indexPath;
+{
+    PATransferCategory *category = [self categoryForSection:indexPath.section];
+    return category.statusCode == PKTransferStatusCompleted && indexPath.row == category.transfers.count;
 }
 
 - (void)addTorrent:(id)sender;
 {
-    UIAlertView *alertView = [UIAlertView alertViewWithTitle:NSLocalizedString(@"Add torrent or magnet URL:", nil)];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    
-    __weak UITextField *URLTextField = [alertView textFieldAtIndex:0];
-    URLTextField.placeholder = NSLocalizedString(@"http://link.to.the/torrent.URL", nil);
-    URLTextField.keyboardType = UIKeyboardTypeURL;
-    
-    NSURL *pasteboradURL = [NSURL URLWithString:[UIPasteboard generalPasteboard].string];
-    if ([[PAPutIOController sharedController] isTorrentURL:pasteboradURL]) {
-        URLTextField.text = pasteboradURL.absoluteString;
-    }
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"Cancel", nil)
-                          handler:nil];
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"Add", nil)
-                          handler:^{
-                              NSURL *URL = [NSURL URLWithString:URLTextField.text];
-                              
-                              if ([[PAPutIOController sharedController] isTorrentURL:URL]) {
-                                  [[PAPutIOController sharedController] addTorrent:URL];
-                              }
-                          }];
-    
-    alertView.cancelButtonIndex = 0;
-    
-    [alertView show];
+    [self.navigationController presentViewController:[PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:nil]
+                                            animated:YES
+                                          completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -212,7 +204,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self categoryForSection:section].transfers.count;
+    PATransferCategory *category = [self categoryForSection:section];
+    
+    if (category.statusCode == PKTransferStatusCompleted) {
+        return category.transfers.count + 1;
+    } else {
+        return category.transfers.count;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
@@ -222,6 +220,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([self isClearCompletedCell:indexPath]) {
+        NSString *cellIdentifier = @"ClearCompletedCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            UILabel *label = [[UILabel alloc] initWithFrame:cell.frame];
+            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            label.text = NSLocalizedString(@"Clear Finished", nil);
+            label.textAlignment = NSTextAlignmentCenter;
+            label.textColor = self.view.tintColor;
+            [cell addSubview:label];
+        }
+        
+        return cell;
+    }
+    
     PKTransfer *transfer = [self tranferForIndexPath:indexPath];
     NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %i", transfer.transferStatus];
     PATransferCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -229,7 +244,6 @@
     if (cell == nil) {
         cell = [[PATransferCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
     cell.transfer = transfer;
     
     return cell;
@@ -237,7 +251,21 @@
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    return NO;
+    return [self isClearCompletedCell:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (![self isClearCompletedCell:indexPath]) return;
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    double delayInSeconds = 0.2;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [[PAPutIOController sharedController].putIOClient cleanFinishedTransfersCallback:^(id JSON) {
+            [self reloadTransfers];
+    });
 }
 
 

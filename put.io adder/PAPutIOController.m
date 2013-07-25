@@ -67,7 +67,7 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     return navigationController;
 }
 
-- (void)addTorrent:(NSURL *)URL;
+- (void)downloadTorrent:(NSURL *)URL toFolder:(PKFolder *)folder
 {
     void(^onComplete)(id userInfoObject) = ^(id userInfoObject) {
         NSLog(@"complete: %@", userInfoObject);
@@ -88,14 +88,16 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     
     if ([URL isFileURL]) {
         [self.putIOClient uploadFile:URL.path
-                                    :onComplete
+                            toFolder:folder
+                            callback:onComplete
                           addFailure:onAddFailure
                       networkFailure:onNetworkFailure];
     } else {
-        [self.putIOClient requestTorrentOrMagnetURLAtPath:URL.absoluteString
-                                                         :onComplete
-                                               addFailure:onAddFailure
-                                           networkFailure:onNetworkFailure];
+        [self.putIOClient requestTorrentOrMagnetURL:URL
+                                           toFolder:folder
+                                           callback:onComplete
+                                         addFailure:onAddFailure
+                                     networkFailure:onNetworkFailure];
     }
 }
 

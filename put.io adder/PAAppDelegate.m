@@ -10,6 +10,7 @@
 
 #import "PAPutIOController.h"
 
+#import "PAAddTorrentViewController.h"
 #import "PATransfersViewController.h"
 
 #import "PAAppDelegate.h"
@@ -45,7 +46,13 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 {
     if ([url.scheme isEqualToString:@"magnet"] || [url isFileURL]) {
-        [[PAPutIOController sharedController] addTorrent:url];
+        double delayInSeconds = 0.2;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.navigationController presentViewController:[PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:url]
+                                                    animated:YES
+                                                  completion:nil];
+        });
         return YES;
     }
     
