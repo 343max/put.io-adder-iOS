@@ -10,6 +10,8 @@
 
 @interface PASearchViewController ()
 
+@property (strong) NSString *searchText;
+
 @end
 
 @implementation PASearchViewController
@@ -58,9 +60,15 @@
             frame.origin.x = 15.0;
             frame.size.width -= 15.0 * 2;
             UITextField *textField = [[UITextField alloc] initWithFrame:frame];
+            textField.text = self.searchText;
             textField.returnKeyType = UIReturnKeySearch;
             textField.placeholder = NSLocalizedString(@"Search", nil);
             textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
+            [textField addEventHandler:^(UITextField *textField) {
+                self.searchText = textField.text;
+            } forControlEvents:UIControlEventValueChanged];
+            
             [cell addSubview:textField];
         }
         
