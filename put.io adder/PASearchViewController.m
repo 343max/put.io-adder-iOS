@@ -56,10 +56,13 @@
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SearchCellIdentifier];
-            CGRect frame = cell.bounds;
-            frame.origin.x = 15.0;
-            frame.size.width -= 15.0 * 2;
-            UITextField *textField = [[UITextField alloc] initWithFrame:frame];
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectZero];
+            textField.frame = ({
+                CGRect frame = cell.bounds;
+                frame.origin.x += 15.0;
+                frame.size.width -= 15.0 * 2;
+                frame;
+            });
             textField.text = self.searchText;
             textField.returnKeyType = UIReturnKeySearch;
             textField.placeholder = NSLocalizedString(@"Search", nil);
