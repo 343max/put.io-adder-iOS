@@ -80,12 +80,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (section == 0) {
+        return 1;
+    } else {
+        return self.history.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -118,12 +122,28 @@
         }
         
         return cell;
+    } else {
+        NSString * const HistoryCellIdentifier = @"HistoryCellIdentifier";
+        UITableViewCell *cell = ([tableView dequeueReusableCellWithIdentifier:HistoryCellIdentifier] ?:
+                                 [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                        reuseIdentifier:HistoryCellIdentifier]);
+        
+        cell.textLabel.text = self.history[indexPath.row];
+        return cell;
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return indexPath.section != 0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (indexPath.section == 1) {
+        [self searchForString:self.history[indexPath.row]];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 
