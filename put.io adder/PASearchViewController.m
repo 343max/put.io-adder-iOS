@@ -10,7 +10,11 @@
 
 @interface PASearchViewController ()
 
-@property (strong) NSString *searchText;
+@property (strong) NSString *searchString;
+@property (strong, nonatomic) NSArray *history;
+
+- (void)searchForString:(NSString *)searchString;
+- (void)addToHistory:(NSString *)searchString;
 
 @end
 
@@ -34,6 +38,42 @@
                                                  }];
     }
     return self;
+}
+
+- (void)searchForString:(NSString *)searchString
+{
+    NSLog(@"search: %@", searchString);
+}
+
+
+@synthesize history = _history;
+
+- (NSArray *)history;
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _history = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SearchHistory"] nilUnlessKindOfClass:[NSArray class]];
+    });
+    
+    return _history;
+}
+
+- (void)setHistory:(NSArray *)history;
+{
+    if ([history isEqualToArray:_history]) return;
+    
+    _history = history;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:history forKey:@"SearchHistory"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)addToHistory:(NSString *)searchString;
+{
+    NSMutableArray *history = ([self.history mutableCopy] ?: [[NSMutableArray alloc] init]);
+    [history removeObject:searchString];
+    [history insertObject:searchString atIndex:0];
+    self.history = [history copy];
 }
 
 #pragma mark - Table view data source
@@ -63,14 +103,16 @@
                 frame.size.width -= 15.0 * 2;
                 frame;
             });
-            textField.text = self.searchText;
+            textField.text = self.searchString;
             textField.returnKeyType = UIReturnKeySearch;
             textField.placeholder = NSLocalizedString(@"Search", nil);
             textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            textField.delegate = self;
             
             [textField addEventHandler:^(UITextField *textField) {
-                self.searchText = textField.text;
+                self.searchString = textField.text;
             } forControlEvents:UIControlEventValueChanged];
+            
             
             [cell addSubview:textField];
         }
@@ -83,5 +125,19 @@
 {
     return indexPath.section != 0;
 }
+
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+{
+    self.searchString = textField.text;
+    [self addToHistory:self.searchString];
+    [self.tableView reloadData];
+    [self searchForString:self.searchString];
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 @end
