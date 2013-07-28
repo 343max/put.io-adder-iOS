@@ -8,10 +8,14 @@
 
 #import "PASearchViewController.h"
 
+NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.org/search.php?query=%s";
+
 @interface PASearchViewController ()
 
 @property (strong) NSString *searchString;
 @property (strong, nonatomic) NSArray *history;
+
+@property (strong, nonatomic) NSString *searchEngineTemplate;
 
 - (void)searchForString:(NSString *)searchString;
 - (void)addToHistory:(NSString *)searchString;
@@ -74,6 +78,28 @@
     [history removeObject:searchString];
     [history insertObject:searchString atIndex:0];
     self.history = [history copy];
+}
+
+@synthesize searchEngineTemplate = _searchEngineTemplate;
+
+- (void)setSearchEngineTemplate:(NSString *)searchEngineTemplate;
+{
+    if ([searchEngineTemplate isEqualToString:_searchEngineTemplate]) return;
+    
+    _searchEngineTemplate = searchEngineTemplate;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:searchEngineTemplate forKey:@"SearchEngineTemplate"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)searchEngineTemplate;
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _searchEngineTemplate = [[NSUserDefaults standardUserDefaults] stringForKey:@"SearchEngineTemplate"];
+    });
+    
+    return _searchEngineTemplate;
 }
 
 #pragma mark - Table view data source
