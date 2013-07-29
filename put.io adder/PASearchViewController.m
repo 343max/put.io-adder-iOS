@@ -52,7 +52,31 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 
 - (void)searchSettings:(id)sender;
 {
-    NSLog(@"searchSettings");
+    UIAlertView *alertView = [UIAlertView alertViewWithTitle:NSLocalizedString(@"Search Website", nil)
+                                                     message:NSLocalizedString(@"URL of the WebSite to search. %s will be replaced by your search query.", nil)];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    UITextField *URLField = [alertView textFieldAtIndex:0];
+    URLField.placeholder = PASearchViewControllerDefaultSearchTemplate;
+    URLField.text = self.searchEngineTemplate;
+    URLField.keyboardType = UIKeyboardTypeURL;
+    
+    [alertView addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    
+    [alertView addButtonWithTitle:NSLocalizedString(@"Save", nil)
+                          handler:^{
+                              if (URLField.text == nil) {
+                                  self.searchEngineTemplate = nil;
+                              } else {
+                                  NSURL *URL = [NSURL URLWithString:[URLField.text stringByReplacingOccurrencesOfString:@"%s"
+                                                                                                             withString:@"sss"]];
+                                  if ([URL.scheme isEqualToString:@"http"] || [URL.scheme isEqualToString:@"https"]) {
+                                      self.searchEngineTemplate = URLField.text;
+                                  }
+                              }
+                          }];
+    
+    [alertView show];
 }
 
 - (void)searchForString:(NSString *)searchString
@@ -65,9 +89,11 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
         searchURL = [NSURL URLWithString:template];
     } else {
         NSString *URLstring = [template stringByReplacingCharactersInRange:placeholderRange
-                                                                withString:[template stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                                                withString:[searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         searchURL = [NSURL URLWithString:URLstring];
     }
+    
+    NSLog(@"searchURL: %@", searchURL.absoluteString);
     
     [[UIApplication sharedApplication] openURL:searchURL];
     
