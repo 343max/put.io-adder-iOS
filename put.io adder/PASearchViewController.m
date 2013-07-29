@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
-#import <TSMiniWebBrowser/TSMiniWebBrowser.h>
-
 #import "PASearchViewController.h"
 
 NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.org/search.php?query=%s";
@@ -60,8 +58,7 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
         searchURL = [NSURL URLWithString:URLstring];
     }
     
-    TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:searchURL];
-    [self.navigationController pushViewController:webBrowser animated:YES];
+    [[UIApplication sharedApplication] openURL:searchURL];
 }
 
 

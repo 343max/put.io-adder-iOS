@@ -6,13 +6,11 @@ PODS:
   - NSObject+Expectation (0.2)
   - PutioKit (0.1):
     - AFNetworking (~> 1.0)
-  - TSMiniWebBrowser (1.0.1)
 
 DEPENDENCIES:
   - BlocksKit (HEAD)
   - NSObject+Expectation
   - PutioKit (from `External/PutioKit`)
-  - TSMiniWebBrowser
 
 EXTERNAL SOURCES:
   PutioKit:
@@ -24,6 +22,5 @@ SPEC CHECKSUMS:
   libffi: 64ef39353e747bb2b25e1026afd96a157bf9231c
   NSObject+Expectation: 7acea14a0ac731cb78b9402ac3d314327bd6a143
   PutioKit: de585b6dc650841e4199372a20fb821d286399ef
-  TSMiniWebBrowser: b0d1e578f250f29615541093564df0c2aebcda07
 
 COCOAPODS: 0.22.3
