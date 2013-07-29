@@ -31,7 +31,7 @@
 		5019462F17A0335300F1EC8E /* PATransferCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PATransferCell.m; sourceTree = "<group>"; };
 		504B695D17A1D7F60019E587 /* PASearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PASearchViewController.h; sourceTree = "<group>"; };
 		504B695E17A1D7F60019E587 /* PASearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PASearchViewController.m; sourceTree = "<group>"; };
-		50664B6B179E86CC00E403D8 /* put.io adder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "put.io adder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50664B6B179E86CC00E403D8 /* put.ter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = put.ter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50664B6E179E86CC00E403D8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		50664B70179E86CC00E403D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		50664B72179E86CC00E403D8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -97,7 +97,7 @@
 		50664B6C179E86CC00E403D8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				50664B6B179E86CC00E403D8 /* put.io adder.app */,
+				50664B6B179E86CC00E403D8 /* put.ter.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,7 +187,7 @@
 			);
 			name = "put.io adder";
 			productName = "put.io adder";
-			productReference = 50664B6B179E86CC00E403D8 /* put.io adder.app */;
+			productReference = 50664B6B179E86CC00E403D8 /* put.ter.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -361,7 +361,7 @@
 				GCC_PREFIX_HEADER = "put.io adder/put.io adder-Prefix.pch";
 				INFOPLIST_FILE = "put.io adder/put.io adder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = put.ter;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -376,7 +376,7 @@
 				GCC_PREFIX_HEADER = "put.io adder/put.io adder-Prefix.pch";
 				INFOPLIST_FILE = "put.io adder/put.io adder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = put.ter;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
