@@ -19,6 +19,7 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 
 - (void)searchForString:(NSString *)searchString;
 - (void)addToHistory:(NSString *)searchString;
+- (void)searchSettings:(id)sender;
 
 @end
 
@@ -40,8 +41,18 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
                                                      [self.navigationController dismissViewControllerAnimated:YES
                                                                                                    completion:nil];
                                                  }];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings"]
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(searchSettings:)];
     }
     return self;
+}
+
+- (void)searchSettings:(id)sender;
+{
+    NSLog(@"searchSettings");
 }
 
 - (void)searchForString:(NSString *)searchString
