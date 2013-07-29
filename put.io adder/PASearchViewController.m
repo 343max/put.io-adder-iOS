@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <TSMiniWebBrowser/TSMiniWebBrowser.h>
+
 #import "PASearchViewController.h"
 
 NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.org/search.php?query=%s";
@@ -46,7 +48,20 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 
 - (void)searchForString:(NSString *)searchString
 {
-    NSLog(@"search: %@", searchString);
+    NSString *template = (self.searchEngineTemplate ?: PASearchViewControllerDefaultSearchTemplate);
+    NSRange placeholderRange = [template rangeOfString:@"%s"];
+    NSURL *searchURL;
+    if (placeholderRange.location == NSNotFound) {
+        NSAssert(NO, @"no placeholder string %%s found in search template");
+        searchURL = [NSURL URLWithString:template];
+    } else {
+        NSString *URLstring = [template stringByReplacingCharactersInRange:placeholderRange
+                                                                withString:[template stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        searchURL = [NSURL URLWithString:URLstring];
+    }
+    
+    TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:searchURL];
+    [self.navigationController pushViewController:webBrowser animated:YES];
 }
 
 
