@@ -116,10 +116,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
 {
-    if (section == 0) {
+    if (section == 0 && [self.torrentURL isFileURL] == NO) {
         return NSLocalizedString(@"Torrent URL", nil);
     } else {
-        return NSLocalizedString(@"Target Folder", nil);
+        return nil;
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5019463017A0335300F1EC8E /* PATransferCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019462F17A0335300F1EC8E /* PATransferCell.m */; };
+		504B695F17A1D7F60019E587 /* PASearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504B695E17A1D7F60019E587 /* PASearchViewController.m */; };
 		50664B6F179E86CC00E403D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50664B6E179E86CC00E403D8 /* UIKit.framework */; };
 		50664B71179E86CC00E403D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50664B70179E86CC00E403D8 /* Foundation.framework */; };
 		50664B73179E86CC00E403D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50664B72179E86CC00E403D8 /* CoreGraphics.framework */; };
@@ -28,6 +29,8 @@
 /* Begin PBXFileReference section */
 		5019462E17A0335300F1EC8E /* PATransferCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PATransferCell.h; sourceTree = "<group>"; };
 		5019462F17A0335300F1EC8E /* PATransferCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PATransferCell.m; sourceTree = "<group>"; };
+		504B695D17A1D7F60019E587 /* PASearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PASearchViewController.h; sourceTree = "<group>"; };
+		504B695E17A1D7F60019E587 /* PASearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PASearchViewController.m; sourceTree = "<group>"; };
 		50664B6B179E86CC00E403D8 /* put.io adder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "put.io adder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50664B6E179E86CC00E403D8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		50664B70179E86CC00E403D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		504B695C17A1D7C60019E587 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				504B695D17A1D7F60019E587 /* PASearchViewController.h */,
+				504B695E17A1D7F60019E587 /* PASearchViewController.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		50664B62179E86CC00E403D8 = {
 			isa = PBXGroup;
 			children = (
@@ -111,8 +123,9 @@
 				50664B75179E86CC00E403D8 /* Supporting Files */,
 				50728927179EDD2B00235948 /* PAPutIOController.h */,
 				50728928179EDD2B00235948 /* PAPutIOController.m */,
-				50B1BD2C17A086FF00ACF55F /* Folder */,
 				50B1BD2B17A086F600ACF55F /* Transfers */,
+				50B1BD2C17A086FF00ACF55F /* Folder */,
+				504B695C17A1D7C60019E587 /* Search */,
 				50728933179FD79C00235948 /* Images.xcassets */,
 			);
 			path = "put.io adder";
@@ -254,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				504B695F17A1D7F60019E587 /* PASearchViewController.m in Sources */,
 				50664B7B179E86CC00E403D8 /* main.m in Sources */,
 				508C5DA617A15E2F0097FAAB /* PAAddTorrentViewController.m in Sources */,
 				50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */,
