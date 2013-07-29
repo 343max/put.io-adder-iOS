@@ -129,6 +129,9 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
     NSMutableArray *history = ([self.history mutableCopy] ?: [[NSMutableArray alloc] init]);
     [history removeObject:searchString];
     [history insertObject:searchString atIndex:0];
+    while (history.count > 20) {
+        [history removeObject:[history lastObject]];
+    }
     self.history = [history copy];
 }
 
