@@ -93,8 +93,6 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
         searchURL = [NSURL URLWithString:URLstring];
     }
     
-    NSLog(@"searchURL: %@", searchURL.absoluteString);
-    
     [[UIApplication sharedApplication] openURL:searchURL];
     
     double delayInSeconds = 0.3;
@@ -109,10 +107,9 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 
 - (NSArray *)history;
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (_history == nil) {
         _history = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SearchHistory"] nilUnlessKindOfClass:[NSArray class]];
-    });
+    }
     
     return _history;
 }
@@ -149,10 +146,9 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 
 - (NSString *)searchEngineTemplate;
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (_searchEngineTemplate == nil) {
         _searchEngineTemplate = [[NSUserDefaults standardUserDefaults] stringForKey:@"SearchEngineTemplate"];
-    });
+    };
     
     return _searchEngineTemplate;
 }
