@@ -195,14 +195,18 @@
 
 - (void)addTorrent:(id)sender;
 {
-    [self.navigationController presentViewController:[PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:nil]
+    UIViewController *controller = [PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:nil];
+    controller.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self.navigationController presentViewController:controller
                                             animated:YES
                                           completion:nil];
 }
 
 - (void)startSearch:(id)sender;
 {
-    [self.navigationController presentViewController:[PASearchViewController searchViewController]
+    UIViewController *controller = [PASearchViewController searchViewController];
+    controller.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self.navigationController presentViewController:controller
                                             animated:YES
                                           completion:nil];
 }

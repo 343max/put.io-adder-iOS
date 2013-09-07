@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "50664B6A179E86CC00E403D8"
-               BuildableName = "put.io adder.app"
+               BuildableName = "put.ter.app"
                BlueprintName = "put.io adder"
                ReferencedContainer = "container:put.io adder.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "50664B6A179E86CC00E403D8"
-            BuildableName = "put.io adder.app"
+            BuildableName = "put.ter.app"
             BlueprintName = "put.io adder"
             ReferencedContainer = "container:put.io adder.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "50664B6A179E86CC00E403D8"
-            BuildableName = "put.io adder.app"
+            BuildableName = "put.ter.app"
             BlueprintName = "put.io adder"
             ReferencedContainer = "container:put.io adder.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "50664B6A179E86CC00E403D8"
-            BuildableName = "put.io adder.app"
+            BuildableName = "put.ter.app"
             BlueprintName = "put.io adder"
             ReferencedContainer = "container:put.io adder.xcodeproj">
          </BuildableReference>
