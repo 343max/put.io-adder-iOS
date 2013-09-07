@@ -23,6 +23,8 @@
 		508C5DA617A15E2F0097FAAB /* PAAddTorrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C5DA517A15E2F0097FAAB /* PAAddTorrentViewController.m */; };
 		508C5DA917A165550097FAAB /* PKFolder+RootFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C5DA817A165550097FAAB /* PKFolder+RootFolder.m */; };
 		50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */; };
+		999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */; };
+		999B0FB017DBAEB9009CF606 /* PAFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */; };
 		99EEC53B17C2C1FC00222CDC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */; };
 		99EEC53D17C2C20300222CDC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */; };
 		FFDA42568C8048C99F40A4FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6D61ED720F42DD9637D512 /* libPods.a */; };
@@ -60,6 +62,9 @@
 		50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFolderChooserTableViewController.m; sourceTree = "<group>"; };
 		7F6D61ED720F42DD9637D512 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFileViewController.h; sourceTree = "<group>"; };
+		999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFileViewController.m; sourceTree = "<group>"; };
+		999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PAFileViewController.xib; sourceTree = "<group>"; };
 		99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -131,6 +136,7 @@
 				50664B75179E86CC00E403D8 /* Supporting Files */,
 				50728927179EDD2B00235948 /* PAPutIOController.h */,
 				50728928179EDD2B00235948 /* PAPutIOController.m */,
+				999B0FAB17DBAE94009CF606 /* Files */,
 				50B1BD2B17A086F600ACF55F /* Transfers */,
 				50B1BD2C17A086FF00ACF55F /* Folder */,
 				504B695C17A1D7C60019E587 /* Search */,
@@ -174,6 +180,16 @@
 				50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */,
 			);
 			name = Folder;
+			sourceTree = "<group>";
+		};
+		999B0FAB17DBAE94009CF606 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */,
+				999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */,
+				999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */,
+			);
+			name = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +248,7 @@
 			files = (
 				50664B79179E86CC00E403D8 /* InfoPlist.strings in Resources */,
 				50728934179FD79C00235948 /* Images.xcassets in Resources */,
+				999B0FB017DBAEB9009CF606 /* PAFileViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				504B695F17A1D7F60019E587 /* PASearchViewController.m in Sources */,
+				999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */,
 				50664B7B179E86CC00E403D8 /* main.m in Sources */,
 				508C5DA617A15E2F0097FAAB /* PAAddTorrentViewController.m in Sources */,
 				50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */,

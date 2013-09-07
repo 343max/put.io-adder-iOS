@@ -12,6 +12,12 @@
 
 NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOControllerTransfersDidChangeNotification";
 
+@interface PAPutIOController ()
+
+@property (readwrite) NSArray *transfers;
+
+@end
+
 @implementation PAPutIOController
 
 + (PAPutIOController *)sharedController;
@@ -104,6 +110,25 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
 - (BOOL)isTorrentURL:(NSURL *)URL;
 {
     return [URL.scheme isEqualToString:@"magnet"] || [URL.scheme isEqualToString:@"http"] || [URL.scheme isEqualToString:@"https"];
+}
+
+
+#pragma mark Accessors
+
+- (BOOL)isReday;
+{
+    return self.putIOClient.ready;
+}
+
+- (void)reloadTransfers:(void(^)(NSError *error))callback;
+{
+    [self.putIOClient getTransfers:^(NSArray *transfers) {
+        self.transfers = transfers;
+        
+        if (callback) callback(nil);
+    } failure:^(NSError *error) {
+        if (callback) callback(error);
+    }];
 }
 
 @end

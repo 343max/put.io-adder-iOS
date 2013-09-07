@@ -18,8 +18,13 @@ extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 
 @property (strong, readonly) V2PutIOAPIClient *putIOClient;
 
+@property (nonatomic, readonly) BOOL isReday;
+
 - (UIViewController *)authenticationViewController;
 - (void)downloadTorrent:(NSURL *)URL toFolder:(PKFolder *)folder;
 - (BOOL)isTorrentURL:(NSURL *)URL;
+
+@property (readonly) NSArray *transfers;
+- (void)reloadTransfers:(void(^)(NSError *error))callback;
 
 @end

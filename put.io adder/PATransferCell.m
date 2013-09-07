@@ -31,16 +31,6 @@
     }
 }
 
-- (void)stopButtonTapped:(id)sender;
-{
-    UITableView *tableView = (UITableView *)self.superview;
-    
-    if ([tableView.delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
-        NSIndexPath *indexPath = [tableView indexPathForCell:self];
-        [tableView.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
-    }
-}
-
 - (void)setTransfer:(PKTransfer *)transfer;
 {
     if (transfer == _transfer) return;
@@ -58,7 +48,9 @@
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 38.0, 38.0)];
         [button setImage:[[UIImage imageNamed:@"Stop"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                 forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(stopButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:nil
+                   action:@selector(stopTransfer:)
+         forControlEvents:UIControlEventTouchUpInside];
         
         LSRoundProgressView *progressView = [[LSRoundProgressView alloc] initWithFrame:CGRectMake(8.0, 8.0, 22.0, 22.0)];
         progressView.alpha = 1.0;
@@ -82,6 +74,7 @@
     if (transfer.transferStatus == PKTransferStatusCompleted) {
         self.imageView.image = [[UIImage imageNamed:@"CheckMark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         self.imageView.tintColor = self.textLabel.textColor;
+        self.accessoryType = UITableViewCellAccessoryDetailButton;
     }
 }
 

@@ -26,8 +26,6 @@
 
 - (BOOL)isClearCompletedCell:(NSIndexPath *)indexPath;
 
-- (void)addTorrent:(id)sender;
-
 @end
 
 @implementation PATransfersViewController
@@ -83,32 +81,29 @@
     [self.refreshTimer invalidate];
     [self.refreshControl beginRefreshing];
     
-    V2PutIOAPIClient *client = [PAPutIOController sharedController].putIOClient;
+    if ([[PAPutIOController sharedController] isReday] == NO) return;
     
-    if (client.ready == NO) return;
-    
-    [client getTransfers:^(NSArray *transfers) {
-        self.transfers = transfers;
-        
+    [[PAPutIOController sharedController] reloadTransfers:^(NSError *error) {
         [self.refreshControl endRefreshing];
         
-        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
-                                                             target:self
-                                                           selector:@selector(reloadTransfers)
-                                                           userInfo:nil
-                                                            repeats:NO];
-    } failure:^(NSError *error) {
-        [self.refreshControl endRefreshing];
-        
-        NSLog(@"error: %@", error);
-        
-        [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
-                                    message:error.localizedDescription
-                          cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay button title")
-                          otherButtonTitles:nil
-                                    handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                        //
-                                    }];
+        if (error) {
+            NSLog(@"error: %@", error);
+            
+            [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
+                                        message:error.localizedDescription
+                              cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay button title")
+                              otherButtonTitles:nil
+                                        handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                            //
+                                        }];
+        } else {
+            self.transfers = [[PAPutIOController sharedController] transfers];
+            self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                                 target:self
+                                                               selector:@selector(reloadTransfers)
+                                                               userInfo:nil
+                                                                repeats:NO];
+        }
     }];
 }
 
@@ -193,7 +188,10 @@
     return category.statusCode == PKTransferStatusCompleted && indexPath.row == category.transfers.count;
 }
 
-- (void)addTorrent:(id)sender;
+
+#pragma mark Actions
+
+- (IBAction)addTorrent:(id)sender;
 {
     UIViewController *controller = [PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:nil];
     controller.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -202,7 +200,7 @@
                                           completion:nil];
 }
 
-- (void)startSearch:(id)sender;
+- (IBAction)startSearch:(id)sender;
 {
     UIViewController *controller = [PASearchViewController searchViewController];
     controller.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -211,16 +209,35 @@
                                           completion:nil];
 }
 
+- (IBAction)stopTransfer:(UIButton *)sender;
+{
+    PATransferCell *cell;
+    UIView *view = sender.superview;
+    while (view) {
+        if ([view isKindOfClass:[PATransferCell class]]) {
+            cell = (PATransferCell *)view;
+        }
+        view = sender.superview;
+    }
+    
+    if (cell) {
+        [[PAPutIOController sharedController].putIOClient cancelTransfer:cell.transfer
+                                                                        :^{
+                                                                            [self reloadTransfers];
+                                                                        } failure:nil];
+    }
+}
+
 
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
 {
-    PKTransfer *tranfer = [self tranferForIndexPath:indexPath];
-    [[PAPutIOController sharedController].putIOClient cancelTransfer:tranfer
-                                                                    :^{
-                                                                        [self reloadTransfers];
-                                                                    } failure:nil];
+    PKTransfer *transfer = [self tranferForIndexPath:indexPath];
+    if (transfer.transferStatus == PKTransferStatusCompleted) {
+        
+    }
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -294,6 +311,5 @@
         } networkFailure:nil];
     });
 }
-
 
 @end
