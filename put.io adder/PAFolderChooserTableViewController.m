@@ -35,23 +35,16 @@
 
 - (void)viewDidLoad;
 {
-    PKFolder *folder = [[PKFolder alloc] init];
-    folder.id = @"-1";
     
-    [[PAPutIOController sharedController].putIOClient getFolderItems:folder
-                                                                    :^(NSArray *filesAndFolders)
-     {
-         NSArray *folders = [filesAndFolders select:^BOOL(id obj) {
-             return [obj isKindOfClass:[PKFolder class]];
-         }];
-         
-         self.folders = folders;
-     }
-                                                             failure:^(NSError *error)
-     {
+    [[PAPutIOController sharedController] reloadFilesAndFolders:^(NSError *error) {
+        if (error) {
 #warning handle the error!
-         NSLog(@"error: %@", error);
-     }];
+            NSLog(@"error: %@", error);
+        } else {
+            
+            self.folders = [[PAPutIOController sharedController] folders];
+        }
+    }];
 }
 
 - (NSArray *)flatFoldersFromFolderDict:(NSDictionary *)foldersByParent

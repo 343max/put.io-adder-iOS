@@ -7,10 +7,10 @@
 //
 
 #import "PAPutIOController.h"
-#import "PAAddTorrentViewController.h"
-#import "PASearchViewController.h"
 #import "PATransferCategory.h"
 #import "PATransferCell.h"
+#import "PAFileViewController.h"
+#import "PKFile.h"
 
 #import "PATransfersViewController.h"
 
@@ -41,13 +41,6 @@
                                                      name:PAPutIOControllerTransfersDidChangeNotification
                                                    object:nil];
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                               target:self
-                                                                                               action:@selector(addTorrent:)];
-        
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
-                                                                                              target:self
-                                                                                              action:@selector(startSearch:)];
     }
     return self;
 }
@@ -191,24 +184,6 @@
 
 #pragma mark Actions
 
-- (IBAction)addTorrent:(id)sender;
-{
-    UIViewController *controller = [PAAddTorrentViewController addTorrentViewControllerWithTorrentURL:nil];
-    controller.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self.navigationController presentViewController:controller
-                                            animated:YES
-                                          completion:nil];
-}
-
-- (IBAction)startSearch:(id)sender;
-{
-    UIViewController *controller = [PASearchViewController searchViewController];
-    controller.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self.navigationController presentViewController:controller
-                                            animated:YES
-                                          completion:nil];
-}
-
 - (IBAction)stopTransfer:(UIButton *)sender;
 {
     PATransferCell *cell;
@@ -228,15 +203,53 @@
     }
 }
 
+- (IBAction)showFile:(UIView *)sender;
+{
+    PATransferCell *cell;
+    UIView *view = sender;
+    while (view) {
+        if ([view isKindOfClass:[PATransferCell class]]) {
+            cell = (PATransferCell *)view;
+        }
+        view = view.superview;
+    }
+    
+    if (cell) {
+        PKTransfer *transfer = cell.transfer;
+        
+        if (transfer.transferStatus == PKTransferStatusCompleted) {
+            UIButton *button = (UIButton *)cell.accessoryView;
+            UIActivityIndicatorView *progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [progressView startAnimating];
+            cell.accessoryView = progressView;
+            
+            [[PAPutIOController sharedController] fileForTransfer:transfer
+                                                         callback:^(PKFile *file, NSError *error) {
+                                                             cell.accessoryView = button;
+                                                             if (file) {
+                                                                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                                                                     UIViewController *controller = [PAFileViewController fileTorrentViewControllerWithFile:file];
+                                                                     controller.modalPresentationStyle = UIModalPresentationFormSheet;
+                                                                     [self presentViewController:controller animated:YES completion:NULL];
+                                                                 } else {
+                                                                     PAFileViewController *controller = [[PAFileViewController alloc] initWithFile:file];
+                                                                     [self.navigationController pushViewController:controller animated:YES];
+                                                                 }
+                                                                 
+                                                             } else {
+#warning Handle error
+                                                                 NSLog(@"error %@", error);
+                                                             }
+                                                         }];
+        }
+    }
+
+}
 
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
 {
-    PKTransfer *transfer = [self tranferForIndexPath:indexPath];
-    if (transfer.transferStatus == PKTransferStatusCompleted) {
-        
-    }
 
 }
 

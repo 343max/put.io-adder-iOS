@@ -74,7 +74,11 @@
     if (transfer.transferStatus == PKTransferStatusCompleted) {
         self.imageView.image = [[UIImage imageNamed:@"CheckMark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         self.imageView.tintColor = self.textLabel.textColor;
-        self.accessoryType = UITableViewCellAccessoryDetailButton;
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [button addTarget:nil
+                   action:@selector(showFile:)
+         forControlEvents:UIControlEventTouchUpInside];
+        self.accessoryView = button;
     }
 }
 

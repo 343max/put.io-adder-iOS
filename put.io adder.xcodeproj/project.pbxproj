@@ -25,6 +25,9 @@
 		50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */; };
 		999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */; };
 		999B0FB017DBAEB9009CF606 /* PAFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */; };
+		999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */; };
+		999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FB817DC8A52009CF606 /* PAMainViewController.m */; };
+		999B0FBC17DC8D2A009CF606 /* PAFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */; };
 		99EEC53B17C2C1FC00222CDC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */; };
 		99EEC53D17C2C20300222CDC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */; };
 		FFDA42568C8048C99F40A4FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6D61ED720F42DD9637D512 /* libPods.a */; };
@@ -65,6 +68,11 @@
 		999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFileViewController.h; sourceTree = "<group>"; };
 		999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFileViewController.m; sourceTree = "<group>"; };
 		999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PAFileViewController.xib; sourceTree = "<group>"; };
+		999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		999B0FB717DC8A52009CF606 /* PAMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAMainViewController.h; sourceTree = "<group>"; };
+		999B0FB817DC8A52009CF606 /* PAMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAMainViewController.m; sourceTree = "<group>"; };
+		999B0FBA17DC8D2A009CF606 /* PAFilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFilesViewController.h; sourceTree = "<group>"; };
+		999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFilesViewController.m; sourceTree = "<group>"; };
 		99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -74,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */,
 				99EEC53D17C2C20300222CDC /* MobileCoreServices.framework in Frameworks */,
 				99EEC53B17C2C1FC00222CDC /* SystemConfiguration.framework in Frameworks */,
 				50664B6F179E86CC00E403D8 /* UIKit.framework in Frameworks */,
@@ -116,6 +125,7 @@
 		50664B6D179E86CC00E403D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */,
 				99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */,
 				99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */,
 				50664B6E179E86CC00E403D8 /* UIKit.framework */,
@@ -136,6 +146,8 @@
 				50664B75179E86CC00E403D8 /* Supporting Files */,
 				50728927179EDD2B00235948 /* PAPutIOController.h */,
 				50728928179EDD2B00235948 /* PAPutIOController.m */,
+				999B0FB717DC8A52009CF606 /* PAMainViewController.h */,
+				999B0FB817DC8A52009CF606 /* PAMainViewController.m */,
 				999B0FAB17DBAE94009CF606 /* Files */,
 				50B1BD2B17A086F600ACF55F /* Transfers */,
 				50B1BD2C17A086FF00ACF55F /* Folder */,
@@ -188,6 +200,8 @@
 				999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */,
 				999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */,
 				999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */,
+				999B0FBA17DC8D2A009CF606 /* PAFilesViewController.h */,
+				999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */,
 			);
 			name = Files;
 			sourceTree = "<group>";
@@ -292,8 +306,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */,
 				504B695F17A1D7F60019E587 /* PASearchViewController.m in Sources */,
 				999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */,
+				999B0FBC17DC8D2A009CF606 /* PAFilesViewController.m in Sources */,
 				50664B7B179E86CC00E403D8 /* main.m in Sources */,
 				508C5DA617A15E2F0097FAAB /* PAAddTorrentViewController.m in Sources */,
 				50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */,

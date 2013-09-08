@@ -27,4 +27,14 @@ extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 @property (readonly) NSArray *transfers;
 - (void)reloadTransfers:(void(^)(NSError *error))callback;
 
+@property (readonly) NSArray *files;
+@property (readonly) NSArray *folders;
+- (void)reloadFilesAndFolders:(void(^)(NSError *error))callback;
+
+- (void)fileForTransfer:(PKTransfer *)transfer callback:(void(^)(PKFile *file, NSError *error))callback;
+
+- (NSURL *)mp4URLForFile:(PKFile *)file;
+- (NSURL *)downloadURLForFile:(PKFile *)file;
+- (NSURL *)streamURLForFile:(PKFile *)file;
+
 @end

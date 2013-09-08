@@ -15,6 +15,8 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
 @interface PAPutIOController ()
 
 @property (readwrite) NSArray *transfers;
+@property (readwrite) NSArray *folders;
+@property (readwrite) NSArray *files;
 
 @end
 
@@ -37,6 +39,9 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     
     if (self) {
         _putIOClient = [V2PutIOAPIClient setup];
+        _files = @[];
+        _folders = @[];
+        _transfers = @[];
     }
     
     return self;
@@ -129,6 +134,74 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     } failure:^(NSError *error) {
         if (callback) callback(error);
     }];
+}
+
+- (void)reloadFilesAndFolders:(void(^)(NSError *error))callback;
+{
+    PKFolder *folder = [[PKFolder alloc] init];
+    folder.id = @"-1";
+    
+    [[PAPutIOController sharedController].putIOClient getFolderItems:folder
+                                                                    :^(NSArray *filesAndFolders)
+     {
+
+         NSMutableArray *folders = [NSMutableArray array];
+         NSMutableArray *files = [NSMutableArray array];
+
+         [filesAndFolders enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+             if ([obj isKindOfClass:[PKFolder class]]) {
+                 [folders addObject:obj];
+             } else if ([obj isKindOfClass:[PKFile class]]) {
+                 [files addObject:obj];
+             }
+         }];
+         
+         self.folders = folders;
+         self.files = files;
+         
+         if (callback) callback(nil);
+     }
+                                                             failure:^(NSError *error)
+     {
+#warning handle the error!
+         NSLog(@"error: %@", error);
+         if (callback) callback(error);
+     }];
+}
+
+- (void)fileForTransfer:(PKTransfer *)transfer callback:(void(^)(PKFile *file, NSError *error))callback;
+{
+    if ((id)transfer.fileID == [NSNull null]) {
+        return;
+    }
+    
+    
+    PKFile *file = [[PKFile alloc] init];
+    file.id = transfer.fileID;
+    [self.putIOClient getAdditionalInfoForFile:file :^{
+        if (![self.files containsObject:file]) {
+            self.files = [self.files arrayByAddingObject:file];
+        }
+        if (callback) callback(file, nil);
+    } failure:^(NSError *error) {
+        if (callback) callback(nil, error);
+    }];
+
+}
+
+- (NSURL *)mp4URLForFile:(PKFile *)file;
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/mp4?token=%@", file.id, self.putIOClient.apiToken]];
+}
+
+- (NSURL *)downloadURLForFile:(PKFile *)file;
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/download?token=%@", file.id, self.putIOClient.apiToken]];
+}
+
+- (NSURL *)streamURLForFile:(PKFile *)file;
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/stream?token=%@", file.id, self.putIOClient.apiToken]];
 }
 
 @end

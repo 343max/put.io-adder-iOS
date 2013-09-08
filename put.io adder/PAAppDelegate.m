@@ -12,6 +12,7 @@
 
 #import "PAAddTorrentViewController.h"
 #import "PATransfersViewController.h"
+#import "PAMainViewController.h"
 
 #import "PAAppDelegate.h"
 
@@ -26,8 +27,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    PATransfersViewController *transfersViewController = [[PATransfersViewController alloc] initWithStyle:UITableViewStylePlain];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:transfersViewController];
+    PAMainViewController *controller = [[PAMainViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     
     self.window.tintColor = [UIColor colorWithRed:0.388 green:0.649 blue:0.109 alpha:1.000];
     
