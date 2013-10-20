@@ -11,6 +11,7 @@
 #import "PAPutIOController.h"
 
 NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOControllerTransfersDidChangeNotification";
+NSString * const PAPutIOControllerFilesAndFoldersDidReloadNotification = @"PAPutIOControllerFilesAndFoldersDidReloadNotification";
 
 @interface PAPutIOController ()
 
@@ -190,17 +191,22 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
 
 - (NSURL *)mp4URLForFile:(PKFile *)file;
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/mp4?token=%@", file.id, self.putIOClient.apiToken]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/mp4?oauth_token=%@", file.id, self.putIOClient.apiToken]];
 }
 
 - (NSURL *)downloadURLForFile:(PKFile *)file;
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/download?token=%@", file.id, self.putIOClient.apiToken]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/download?oauth_token=%@", file.id, self.putIOClient.apiToken]];
 }
 
 - (NSURL *)streamURLForFile:(PKFile *)file;
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/stream?token=%@", file.id, self.putIOClient.apiToken]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/stream?oauth_token=%@", file.id, self.putIOClient.apiToken]];
+}
+
+- (NSURL *)mp4StreamURLForFile:(PKFile *)file;
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/mp4/stream?oauth_token=%@", file.id, self.putIOClient.apiToken]];
 }
 
 @end

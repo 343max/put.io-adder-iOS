@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const PAPutIOControllerFilesAndFoldersDidReloadNotification;
 extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 
 @interface PAPutIOController : NSObject
@@ -36,5 +37,6 @@ extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 - (NSURL *)mp4URLForFile:(PKFile *)file;
 - (NSURL *)downloadURLForFile:(PKFile *)file;
 - (NSURL *)streamURLForFile:(PKFile *)file;
+- (NSURL *)mp4StreamURLForFile:(PKFile *)file;
 
 @end

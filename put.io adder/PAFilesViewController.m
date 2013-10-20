@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <BlocksKit/BlocksKit.h>
+
 #import "PAPutIOController.h"
 
 #import "PAFileViewController.h"
@@ -36,13 +38,25 @@
     return self;
 }
 
+- (void)dealloc;
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PAPutIOControllerFilesAndFoldersDidReloadNotification
+                                                  object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateFilesAndFolders)
+                                                 name:PAPutIOControllerFilesAndFoldersDidReloadNotification
+                                               object:nil];
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
-                            action:@selector(reloadFiles)
+                            action:@selector(reloadFiles:)
                   forControlEvents:UIControlEventValueChanged];
     
     [self updateFilesAndFolders];
@@ -51,15 +65,25 @@
 
 #pragma mark Actions
 
-- (IBAction)reloadFiles;
+- (IBAction)reloadFiles:(id)sender;
 {
     [[PAPutIOController sharedController] reloadFilesAndFolders:^(NSError *error) {
         [self.refreshControl endRefreshing];
         
-        [self updateFilesAndFolders];
-        
-#warning Error handling
-        NSLog(@"eror %@", error);
+        if (error) {
+            [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
+                                        message:error.localizedDescription
+                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                              otherButtonTitles:@[ NSLocalizedString(@"Retry", nil) ]
+                                        handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                            if (buttonIndex != alertView.cancelButtonIndex) {
+                                                [self performSelector:@selector(reloadFiles:) withObject:alertView afterDelay:0.0];
+                                            }
+                                        }];
+            
+        } else {
+            [self updateFilesAndFolders];
+        }
     }];
 }
 
@@ -91,7 +115,9 @@
     } else if ([item isKindOfClass:[PKFile class]]) {
         PKFile *file = item;
         cell.textLabel.text = file.displayName;
+        cell.detailTextLabel.text = file.contentType;
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.imageView.image = nil;
     }
     
     return cell;
