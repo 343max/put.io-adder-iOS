@@ -10,6 +10,7 @@
 #import "PASearchViewController.h"
 
 #import "PATransfersViewController.h"
+#import "PAFilesViewController.h"
 
 #import "PAMainViewController.h"
 
@@ -28,6 +29,8 @@ enum PAAppSection {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+ 
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                            target:self
@@ -37,7 +40,8 @@ enum PAAppSection {
                                                                                           target:self
                                                                                           action:@selector(startSearch:)];
 
-    self.sectionPicker = [[UISegmentedControl alloc] initWithItems:@[ @"Transfers", @"Files" ]];
+    self.sectionPicker = [[UISegmentedControl alloc] initWithItems:@[ NSLocalizedString(@"Transfers", nil),
+                                                                      NSLocalizedString(@"Files", nil) ]];
     self.sectionPicker.selectedSegmentIndex = 0;
     [self.sectionPicker addTarget:self
                            action:@selector(switchSetion:)
@@ -46,8 +50,13 @@ enum PAAppSection {
     
     self.transfersController = [[PATransfersViewController alloc] initWithStyle:UITableViewStylePlain];
     self.transfersController.view.frame = self.view.bounds;
-    [self.view addSubview:self.transfersController.view];
     [self addChildViewController:self.transfersController];
+    
+    self.filesController = [[PAFilesViewController alloc] initWithFolder:nil];
+    self.filesController.view.frame = self.view.bounds;
+    [self addChildViewController:self.filesController];
+    
+    [self switchSetion:self.sectionPicker];
 }
 
 
@@ -75,18 +84,23 @@ enum PAAppSection {
 {
     switch (sender.selectedSegmentIndex) {
         case PAAppSectionTransfers:
-            self.transfersController.view.hidden = NO;
+            [self.filesController.view removeFromSuperview];
+            [self.view addSubview:self.transfersController.view];
+            [self.transfersController.tableView flashScrollIndicators];
             break;
             
         case PAAppSectionFiles:
-            self.transfersController.view.hidden = YES;
+            [self.transfersController.view removeFromSuperview];
+            [self.view addSubview:self.filesController.view];
+            [self.filesController.tableView flashScrollIndicators];
             break;
     }
-
-    [self.transfersController.tableView setContentOffset:CGPointZero animated:NO];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.transfersController.tableView flashScrollIndicators];
-    });
+    
+    self.filesController.tableView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(self.navigationController.navigationBar.frame), 0, 0, 0);
+    self.transfersController.tableView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(self.navigationController.navigationBar.frame), 0, 0, 0);
+    
+    self.filesController.tableView.scrollIndicatorInsets = self.filesController.tableView.contentInset;
+    self.transfersController.tableView.scrollIndicatorInsets = self.transfersController.tableView.contentInset;
 }
 
 @end

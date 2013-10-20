@@ -34,7 +34,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.title = NSLocalizedString(@"Transfers", @"Transfers View Controller Title");
+        self.title = NSLocalizedString(@"Transfers", nil);
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(reloadTransfers)

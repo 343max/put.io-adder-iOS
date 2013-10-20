@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class PATransfersViewController;
+@class PAFilesViewController;
 
 
 @interface PAMainViewController : UIViewController
@@ -16,6 +17,6 @@
 @property UISegmentedControl *sectionPicker;
 
 @property PATransfersViewController *transfersController;
-@property UITableViewController *filesController;
+@property PAFilesViewController *filesController;
 
 @end

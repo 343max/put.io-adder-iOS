@@ -10,4 +10,6 @@
 
 @interface PAFilesViewController : UITableViewController
 
+- (id)initWithFolder:(PKFolder *)folder;
+
 @end

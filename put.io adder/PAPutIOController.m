@@ -144,10 +144,9 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     [[PAPutIOController sharedController].putIOClient getFolderItems:folder
                                                                     :^(NSArray *filesAndFolders)
      {
-
          NSMutableArray *folders = [NSMutableArray array];
          NSMutableArray *files = [NSMutableArray array];
-
+         
          [filesAndFolders enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
              if ([obj isKindOfClass:[PKFolder class]]) {
                  [folders addObject:obj];
