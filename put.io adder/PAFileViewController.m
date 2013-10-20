@@ -11,14 +11,15 @@
 #import <PutioKit/PKFile.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "PAFileView.h"
 #import "PAPutIOController.h"
 #import "PAFileViewController.h"
 
 @interface PAFileViewController ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong) PAFileView *fileView;
 @property (strong) MPMoviePlayerController *playerController;
+@property (strong) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -33,7 +34,7 @@
 - (instancetype)initWithFile:(PKFile *)file;
 {
     NSParameterAssert(file);
-    self = [super initWithNibName:@"PAFileViewController" bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _file = file;
 
@@ -42,12 +43,7 @@
                           identifier:@"foobar"
                              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
                                 task:^(PKFile *obj, NSString *keyPath, NSDictionary *change) {
-                                    weakSelf.title = obj.name;
-                                    if (obj.hasPreviewThumbnail) {
-                                        NSURL *url = [NSURL URLWithString:obj.screenshot];
-                                        [weakSelf.imageView setImageWithURL:url];
-                                    }
-                                    
+                                    [weakSelf updateUI];
                                 }];
     }
     return self;
@@ -69,6 +65,11 @@
 {
     [super viewDidLoad];
     
+    self.fileView = [[PAFileView alloc] initWithFrame:self.view.bounds];
+    self.fileView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:self.fileView];
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerStateDidChange:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
@@ -86,6 +87,43 @@
                                                                                              }];
         
     }
+
+    [self updateUI];
+}
+
+
+#pragma mark Notifications
+
+- (void)playerStateDidChange:(NSNotification *)notification;
+{
+    if (self.playerController.loadState == MPMoviePlaybackStatePlaying) {
+        [self.spinner stopAnimating];
+    }
+    NSLog(@"%s: %d", __PRETTY_FUNCTION__, self.playerController.playbackState);
+}
+
+- (void)playerLoadStateDidChange:(NSNotification *)notification;
+{
+    switch (self.playerController.loadState) {
+        case MPMovieLoadStateUnknown:
+        case MPMovieLoadStateStalled:
+            [self.spinner startAnimating];
+            break;
+            
+        default:
+            [self.spinner stopAnimating];
+            break;
+    }
+    NSLog(@"%s: %d", __PRETTY_FUNCTION__, self.playerController.loadState);
+}
+
+
+#pragma mark Update UI
+
+- (void)updateUI;
+{
+    self.title = self.file.name;
+    self.fileView.titleLabel.text = self.title;
     
     NSURL *streamURL;
     if (self.file.isMP4Available.boolValue) {
@@ -94,38 +132,49 @@
         streamURL = [[PAPutIOController sharedController] streamURLForFile:self.file];
     }
     
-    
     if (streamURL) {
         NSLog(@"url = %@", streamURL);
-        self.playerController = [[MPMoviePlayerController alloc] initWithContentURL:streamURL];
-        self.playerController.controlStyle = MPMovieControlStyleEmbedded;
-        self.playerController.shouldAutoplay = NO;
-        self.playerController.allowsAirPlay = YES;
-        [self.playerController prepareToPlay];
-        self.playerController.view.frame = CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame),
-                                                      CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.view.bounds) / 16.0 * 9.0);
-        self.playerController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-        
-        [self.view addSubview:self.playerController.view];
-        
-        [self.playerController play];
+        if (!self.playerController) {
+            self.playerController = [[MPMoviePlayerController alloc] initWithContentURL:streamURL];
+            self.playerController.controlStyle = MPMovieControlStyleEmbedded;
+            self.playerController.shouldAutoplay = NO;
+            self.playerController.allowsAirPlay = YES;
+            
+            self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            self.spinner.frame = self.playerController.backgroundView.frame;
+            self.spinner.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+            self.spinner.userInteractionEnabled = NO;
+            [self.playerController.view addSubview:self.spinner];
+            self.spinner.hidesWhenStopped = YES;
+            [self.spinner startAnimating];
+            
+            [self.playerController prepareToPlay];
 
+        } else {
+            self.playerController.contentURL = streamURL;
+        }
+        
+        if (self.playerController.view.superview != self.fileView.viedoPlayerContainerView) {
+            self.playerController.view.frame = self.fileView.viedoPlayerContainerView.bounds;
+            self.playerController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
+            [self.fileView.viedoPlayerContainerView addSubview:self.playerController.view];
+        }
+
+        self.fileView.headerImageView.hidden = YES;
+        self.fileView.viedoPlayerContainerView.hidden = NO;
     } else {
-        [[[UIAlertView alloc] initWithTitle:@"No MP4" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
+        self.fileView.headerImageView.hidden = NO;
+        self.fileView.viedoPlayerContainerView.hidden = YES;
+        
+        if (self.file.hasPreviewThumbnail) {
+            NSURL *url = [NSURL URLWithString:self.file.screenshot];
+            [self.fileView.headerImageView setImageWithURL:url];
+        }
     }
+    
+    [self.fileView setNeedsLayout];    
 }
 
 
-#pragma mark Notifications
-
-- (void)playerStateDidChange:(NSNotification *)notification;
-{
-    NSLog(@"%s: %d", __PRETTY_FUNCTION__, self.playerController.playbackState);
-}
-
-- (void)playerLoadStateDidChange:(NSNotification *)notification;
-{
-    NSLog(@"%s: %d", __PRETTY_FUNCTION__, self.playerController.loadState);
-}
-                                            
 @end

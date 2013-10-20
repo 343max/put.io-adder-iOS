@@ -23,8 +23,8 @@
 		508C5DA617A15E2F0097FAAB /* PAAddTorrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C5DA517A15E2F0097FAAB /* PAAddTorrentViewController.m */; };
 		508C5DA917A165550097FAAB /* PKFolder+RootFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C5DA817A165550097FAAB /* PKFolder+RootFolder.m */; };
 		50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */; };
+		9902ADD5181466E900C68BF6 /* PAFileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9902ADD4181466E900C68BF6 /* PAFileView.m */; };
 		999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */; };
-		999B0FB017DBAEB9009CF606 /* PAFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */; };
 		999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */; };
 		999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FB817DC8A52009CF606 /* PAMainViewController.m */; };
 		999B0FBC17DC8D2A009CF606 /* PAFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */; };
@@ -65,9 +65,10 @@
 		50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFolderChooserTableViewController.m; sourceTree = "<group>"; };
 		7F6D61ED720F42DD9637D512 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		9902ADD3181466E900C68BF6 /* PAFileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFileView.h; sourceTree = "<group>"; };
+		9902ADD4181466E900C68BF6 /* PAFileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFileView.m; sourceTree = "<group>"; };
 		999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFileViewController.h; sourceTree = "<group>"; };
 		999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFileViewController.m; sourceTree = "<group>"; };
-		999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PAFileViewController.xib; sourceTree = "<group>"; };
 		999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		999B0FB717DC8A52009CF606 /* PAMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAMainViewController.h; sourceTree = "<group>"; };
 		999B0FB817DC8A52009CF606 /* PAMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAMainViewController.m; sourceTree = "<group>"; };
@@ -214,11 +215,12 @@
 		999B0FAB17DBAE94009CF606 /* Files */ = {
 			isa = PBXGroup;
 			children = (
-				999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */,
-				999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */,
-				999B0FAE17DBAEB9009CF606 /* PAFileViewController.xib */,
 				999B0FBA17DC8D2A009CF606 /* PAFilesViewController.h */,
 				999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */,
+				999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */,
+				999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */,
+				9902ADD3181466E900C68BF6 /* PAFileView.h */,
+				9902ADD4181466E900C68BF6 /* PAFileView.m */,
 			);
 			name = Files;
 			sourceTree = "<group>";
@@ -284,7 +286,6 @@
 			files = (
 				50664B79179E86CC00E403D8 /* InfoPlist.strings in Resources */,
 				50728934179FD79C00235948 /* Images.xcassets in Resources */,
-				999B0FB017DBAEB9009CF606 /* PAFileViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +340,7 @@
 				5072892F179EE25700235948 /* PATransfersViewController.m in Sources */,
 				5072893B17A0144E00235948 /* LSRoundProgressView.m in Sources */,
 				508C5DA917A165550097FAAB /* PKFolder+RootFolder.m in Sources */,
+				9902ADD5181466E900C68BF6 /* PAFileView.m in Sources */,
 				50728932179EF35C00235948 /* PATransferCategory.m in Sources */,
 				5019463017A0335300F1EC8E /* PATransferCell.m in Sources */,
 				50728929179EDD2B00235948 /* PAPutIOController.m in Sources */,
