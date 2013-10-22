@@ -40,12 +40,74 @@ NSString * const PAPutIOControllerFilesAndFoldersDidReloadNotification = @"PAPut
     
     if (self) {
         _putIOClient = [V2PutIOAPIClient setup];
-        _files = @[];
-        _folders = @[];
-        _transfers = @[];
+
+        NSData *data = [NSData dataWithContentsOfURL:self.dataCacheURL];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        if (unarchiver) {
+            _files = [unarchiver decodeObjectForKey:@"files"];
+            _folders = [unarchiver decodeObjectForKey:@"folders"];
+            _transfers = [unarchiver decodeObjectForKey:@"transfers"];
+        }
+        [unarchiver finishDecoding];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(encodeData)
+                                                     name:UIApplicationWillTerminateNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(encodeData)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+        
+        if (!_files) _files = @[];
+        if (!_folders) _folders = @[];
+        if (!_transfers) _transfers = @[];
     }
     
     return self;
+}
+
+- (void)dealloc;
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)encodeData;
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIBackgroundTaskIdentifier identifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+            NSLog(@"Error: Could not encode data");
+        }];
+        
+        NSMutableData *data = [[NSMutableData alloc] init];
+        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [archiver encodeObject:self.files forKey:@"files"];
+        [archiver encodeObject:self.folders forKey:@"folders"];
+        [archiver encodeObject:self.transfers forKey:@"transfers"];
+        [archiver finishEncoding];
+        
+        [data writeToURL:self.dataCacheURL atomically:YES];
+        
+        [[UIApplication sharedApplication] endBackgroundTask:identifier];
+    });
+}
+
+#pragma mark Accessors
+
+- (NSURL *)cacheDirectoryURL;
+{
+    NSURL *cacheDir = [[[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:cacheDir.path]) {
+        NSError *error;
+        BOOL success = [[NSFileManager defaultManager] createDirectoryAtURL:cacheDir withIntermediateDirectories:YES attributes:nil error:&error];
+        NSAssert(success, error.localizedDescription);
+    }
+    return cacheDir;
+}
+
+- (NSURL *)dataCacheURL;
+{
+    return [self.cacheDirectoryURL URLByAppendingPathComponent:@"putio-data.cache"];
 }
 
 - (UIViewController *)authenticationViewController;
@@ -78,6 +140,9 @@ NSString * const PAPutIOControllerFilesAndFoldersDidReloadNotification = @"PAPut
     
     return navigationController;
 }
+
+
+#pragma mark API
 
 - (void)downloadTorrent:(NSURL *)URL toFolder:(PKFolder *)folder
 {
