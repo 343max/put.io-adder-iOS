@@ -14,9 +14,12 @@
 #import "PAFilesViewController.h"
 
 
-@interface PAFilesViewController ()
+@interface PAFilesViewController () <UISearchDisplayDelegate>
 
 @property (nonatomic) NSArray *filesAndFolders;
+@property (nonatomic) UISearchBar *searchBar;
+@property (nonatomic) UISearchDisplayController *searchController;
+@property (nonatomic) NSArray *filteredFilesAndFolders;
 
 @property (nonatomic) PKFolder *folder;
 
@@ -28,6 +31,7 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
+        _filteredFilesAndFolders = @[];
         _folder = folder;
         if (!_folder) {
             self.title = NSLocalizedString(@"Files", nil);
@@ -59,7 +63,26 @@
                             action:@selector(reloadFiles:)
                   forControlEvents:UIControlEventValueChanged];
     
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+    self.tableView.tableHeaderView = self.searchBar;
+    
     [self updateFilesAndFolders];
+}
+
+- (UISearchDisplayController *)searchDisplayController;
+{
+    return self.searchController;
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent;
+{
+    [super didMoveToParentViewController:parent];
+    
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:parent];
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+    self.searchController.delegate = self;
+    
 }
 
 
@@ -92,7 +115,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    return self.filesAndFolders.count;
+    if (tableView == self.tableView) {
+        return self.filesAndFolders.count;
+    } else if (tableView == self.searchController.searchResultsTableView) {
+        return self.filteredFilesAndFolders.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -105,7 +133,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    id item = self.filesAndFolders[indexPath.row];
+    id item = [self itemForIndexPath:indexPath inTableView:tableView];
     if ([item isKindOfClass:[PKFolder class]]) {
         PKFolder *folder = item;
         cell.textLabel.text = folder.displayName;
@@ -128,7 +156,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIViewController *controller;
-    id item = self.filesAndFolders[indexPath.row];
+    id item = [self itemForIndexPath:indexPath inTableView:tableView];
     if ([item isKindOfClass:[PKFolder class]]) {
         PKFolder *folder = item;
         controller = [[PAFilesViewController alloc] initWithFolder:folder];
@@ -140,7 +168,29 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+
+#pragma mark UISearchDisplayDelegate
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString;
+{
+    self.filteredFilesAndFolders = [self.filesAndFolders select:^BOOL(PKFile *obj) {
+        return [obj.displayName rangeOfString:searchString options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch].location != NSNotFound;
+    }];
+    return YES;
+}
+
 #pragma mark Helpers
+
+- (id)itemForIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView;
+{
+    if (tableView == self.tableView) {
+        return self.filesAndFolders[indexPath.row];
+    } else if (tableView == self.searchController.searchResultsTableView) {
+        return self.filteredFilesAndFolders[indexPath.row];
+    }
+
+    return nil;
+}
 
 - (void)updateFilesAndFolders;
 {

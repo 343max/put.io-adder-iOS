@@ -51,10 +51,12 @@ enum PAAppSection {
     self.transfersController = [[PATransfersViewController alloc] initWithStyle:UITableViewStylePlain];
     self.transfersController.view.frame = self.view.bounds;
     [self addChildViewController:self.transfersController];
+    [self.transfersController didMoveToParentViewController:self];
     
     self.filesController = [[PAFilesViewController alloc] initWithFolder:nil];
     self.filesController.view.frame = self.view.bounds;
     [self addChildViewController:self.filesController];
+    [self.filesController didMoveToParentViewController:self];
     
     [self switchSetion:self.sectionPicker];
 }
