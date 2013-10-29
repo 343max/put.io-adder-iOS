@@ -138,14 +138,14 @@
         PKFolder *folder = item;
         cell.textLabel.text = folder.displayName;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.imageView.image = [[UIImage imageNamed:@"Folder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.imageView.image = [self imageForIndexPath:indexPath inTableView:tableView];
         
     } else if ([item isKindOfClass:[PKFile class]]) {
         PKFile *file = item;
         cell.textLabel.text = file.displayName;
         cell.detailTextLabel.text = file.contentType;
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.imageView.image = nil;
+        cell.imageView.image = [self imageForIndexPath:indexPath inTableView:tableView];
     }
     
     return cell;
@@ -218,5 +218,27 @@
     [self.tableView reloadData];
 }
 
+- (UIImage *)imageForIndexPath:(NSIndexPath *)path inTableView:(UITableView *)tableView;
+{
+    UIImage *image = [UIImage imageNamed:@"File"];
+    id item = [self itemForIndexPath:path inTableView:tableView];
+    if ([item isKindOfClass:[PKFolder class]]) {
+        image = [UIImage imageNamed:@"Folder"];
+    } else if ([item isKindOfClass:[PKFile class]]) {
+        PKFile *file = item;
+        
+        if ([file.contentType hasPrefix:@"video/"]) {
+            image = [UIImage imageNamed:@"Video"];
+        } else if ([file.contentType hasPrefix:@"image/"]) {
+            image = [UIImage imageNamed:@"Picture"];
+        } else if ([file.contentType hasPrefix:@"text/"]) {
+            image = [UIImage imageNamed:@"Text"];
+        } else if ([file.contentType hasPrefix:@"audio/"]) {
+            image = [UIImage imageNamed:@"Sound"];
+        }
+    }
+    
+    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];;
+}
 
 @end
