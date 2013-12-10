@@ -80,7 +80,7 @@
                                                object:nil];
     
     
-    if (self.isBeingPresented) {
+    if (!self.navigationItem.backBarButtonItem) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                              handler:^(id sender) {
                                                                                                  [self dismissViewControllerAnimated:YES completion:NULL];

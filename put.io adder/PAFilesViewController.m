@@ -7,6 +7,7 @@
 //
 
 #import <BlocksKit/BlocksKit.h>
+#import <FormatterKit/TTTUnitOfInformationFormatter.h>
 
 #import "PAPutIOController.h"
 
@@ -132,6 +133,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
+    cell.detailTextLabel.text = nil;
     
     id item = [self itemForIndexPath:indexPath inTableView:tableView];
     if ([item isKindOfClass:[PKFolder class]]) {
@@ -143,12 +145,32 @@
     } else if ([item isKindOfClass:[PKFile class]]) {
         PKFile *file = item;
         cell.textLabel.text = file.displayName;
-        cell.detailTextLabel.text = file.contentType;
+        if (file.size.unsignedIntegerValue > 0) {
+            TTTUnitOfInformationFormatter *formatter = [[TTTUnitOfInformationFormatter alloc] init];
+            formatter.numberFormatter.locale = [NSLocale currentLocale];
+            formatter.numberFormatter.roundingIncrement = @.001;
+            formatter.numberFormatter.minimumFractionDigits = 0;
+            formatter.numberFormatter.maximumFractionDigits = 2;
+            
+            
+            cell.detailTextLabel.text = [formatter stringFromNumber:file.size ofUnit:TTTByte];
+            NSLog(@"%@ byts %@ KB %.2f MB %.2f", file.name, file.size, file.size.doubleValue / 1024.0, file.size.doubleValue / 1024.0 / 1024.0);
+        }
+        
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.imageView.image = [self imageForIndexPath:indexPath inTableView:tableView];
     }
     
     return cell;
+}
+
+- (NSString *)formattedFileSizeStringFromBytes:(NSNumber *)number;
+{
+//    unsigned long long bytes = number.unsignedLongLongValue;
+//    if (bytes < 1024) {
+//        <#statements#>
+//    }
+    return number.stringValue;
 }
 
 #pragma mark UITableViewDelegate
@@ -168,6 +190,10 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 #pragma mark UISearchDisplayDelegate
 
