@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <BlocksKit/BlocksKit.h>
 #import <PutioKit/PKFile.h>
@@ -17,9 +18,11 @@
 
 @interface PAFileViewController ()
 
-@property (strong) PAFileView *fileView;
-@property (strong) MPMoviePlayerController *playerController;
-@property (strong) UIActivityIndicatorView *spinner;
+@property PAFileView *fileView;
+@property MPMoviePlayerController *playerController;
+@property UIActivityIndicatorView *spinner;
+@property (nonatomic) BOOL isPlaying;
+@property NSTimer *currentPlaybackTimeTimer;
 
 @end
 
@@ -61,6 +64,37 @@
                                                   object:nil];
 }
 
+
+#pragma mark Accessors
+
+- (void)setIsPlaying:(BOOL)isPlaying;
+{
+    if (isPlaying == _isPlaying) {
+        return;
+    }
+    
+    _isPlaying = isPlaying;
+    
+}
+
+- (void)updateNowPlayingInfo;
+{
+    NSMutableDictionary *nowPlayingInfo;
+    
+    if (self.playerController.playbackState != MPMoviePlaybackStateStopped) {
+        nowPlayingInfo = [NSMutableDictionary dictionary];
+        if (self.file.name) nowPlayingInfo[MPMediaItemPropertyTitle] = self.file.name;
+        
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(self.playerController.currentPlaybackTime);
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(self.playerController.playableDuration);
+    }
+    
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nowPlayingInfo];
+}
+
+
+#pragma mark UIViewController
+
 - (void)viewDidLoad;
 {
     [super viewDidLoad];
@@ -91,15 +125,74 @@
     [self updateUI];
 }
 
+- (void)viewWillDisappear:(BOOL)animated;
+{
+    [super viewWillDisappear:animated];
+    
+    [self.playerController stop];
+}
+
 
 #pragma mark Notifications
 
 - (void)playerStateDidChange:(NSNotification *)notification;
 {
+    NSLog(@"%s: %d", __PRETTY_FUNCTION__, self.playerController.playbackState);
+    
     if (self.playerController.loadState == MPMoviePlaybackStatePlaying) {
         [self.spinner stopAnimating];
+        self.isPlaying = YES;
+    } else {
+        self.isPlaying = NO;
     }
-    NSLog(@"%s: %d", __PRETTY_FUNCTION__, self.playerController.playbackState);
+
+    NSError *error;
+    
+    switch (self.playerController.playbackState) {
+        case MPMoviePlaybackStateStopped:
+            [[AVAudioSession sharedInstance] setActive:NO
+                                                 error:&error];
+             [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+            [self resignFirstResponder];
+            
+            [self.currentPlaybackTimeTimer invalidate];
+            self.currentPlaybackTimeTimer = nil;
+            
+            break;
+            
+        case MPMoviePlaybackStatePlaying:
+        
+            if (!self.currentPlaybackTimeTimer) {
+                __weak id blockSelf = self;
+                [self.currentPlaybackTimeTimer invalidate];
+                self.currentPlaybackTimeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                                                  block:^(NSTimeInterval time) {
+                                                                                      [blockSelf updateNowPlayingInfo];
+                                                                                  }
+                                                                                repeats:YES];
+                
+            }
+            
+            
+            [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+            [self becomeFirstResponder];
+            
+            
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                                   error:&error];
+            NSAssert(error == nil, error.localizedDescription);
+            
+            [[AVAudioSession sharedInstance] setActive:YES
+                                                 error:&error];
+            NSAssert(error == nil, error.localizedDescription);
+            
+            break;
+        
+        default:
+            break;
+    }
+    
+    [self updateNowPlayingInfo];
 }
 
 - (void)playerLoadStateDidChange:(NSNotification *)notification;
@@ -176,5 +269,75 @@
     [self.fileView setNeedsLayout];    
 }
 
+
+#pragma mark Remote Control Events
+
+- (IBAction)remoteControlReceivedWithEvent:(UIEvent *)receivedEvent;
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        switch (receivedEvent.subtype) {
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+            case UIEventSubtypeRemoteControlPlay:
+            case UIEventSubtypeRemoteControlStop:
+            case UIEventSubtypeRemoteControlPause:
+                
+                [self togglePlayback:receivedEvent];
+                break;
+                
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                [self jumpBack:receivedEvent];
+                break;
+                
+            case UIEventSubtypeRemoteControlNextTrack:
+                [self jumpForward: nil];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+
+#pragma mark Actions
+
+- (BOOL)canBecomeFirstResponder;
+{
+    return YES;
+}
+
+- (IBAction)togglePlayback:(id)sender;
+{
+    switch (self.playerController.playbackState) {
+        case MPMoviePlaybackStatePaused:
+        case MPMoviePlaybackStateStopped:
+            [self.playerController play];
+            break;
+            
+        default:
+            [self.playerController pause];
+            break;
+    }
+}
+
+- (IBAction)jumpForward:(id)sender;
+{
+    if (self.playerController.playbackState != MPMoviePlaybackStateStopped) {
+        self.playerController.currentPlaybackTime += 10;
+    } else {
+        self.playerController.initialPlaybackTime += 10;
+    }
+}
+
+- (IBAction)jumpBack:(id)sender;
+{
+    if (self.playerController.playbackState != MPMoviePlaybackStateStopped) {
+        self.playerController.currentPlaybackTime -= 10;
+    } else {
+        self.playerController.initialPlaybackTime -= 10;
+    }
+}
 
 @end

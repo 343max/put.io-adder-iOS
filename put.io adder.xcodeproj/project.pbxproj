@@ -28,6 +28,7 @@
 		999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */; };
 		999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FB817DC8A52009CF606 /* PAMainViewController.m */; };
 		999B0FBC17DC8D2A009CF606 /* PAFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */; };
+		99E5FA3218590AD200EDEA33 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E5FA3118590AD200EDEA33 /* AVFoundation.framework */; };
 		99EEC53B17C2C1FC00222CDC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */; };
 		99EEC53D17C2C20300222CDC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */; };
 		FFDA42568C8048C99F40A4FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6D61ED720F42DD9637D512 /* libPods.a */; };
@@ -74,6 +75,7 @@
 		999B0FB817DC8A52009CF606 /* PAMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAMainViewController.m; sourceTree = "<group>"; };
 		999B0FBA17DC8D2A009CF606 /* PAFilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFilesViewController.h; sourceTree = "<group>"; };
 		999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFilesViewController.m; sourceTree = "<group>"; };
+		99E5FA3118590AD200EDEA33 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99E5FA3218590AD200EDEA33 /* AVFoundation.framework in Frameworks */,
 				999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */,
 				99EEC53D17C2C20300222CDC /* MobileCoreServices.framework in Frameworks */,
 				99EEC53B17C2C1FC00222CDC /* SystemConfiguration.framework in Frameworks */,
@@ -126,6 +129,7 @@
 		50664B6D179E86CC00E403D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99E5FA3118590AD200EDEA33 /* AVFoundation.framework */,
 				999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */,
 				99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */,
 				99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */,
