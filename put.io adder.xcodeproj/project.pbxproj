@@ -24,6 +24,10 @@
 		508C5DA917A165550097FAAB /* PKFolder+RootFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C5DA817A165550097FAAB /* PKFolder+RootFolder.m */; };
 		50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1BD2E17A0872B00ACF55F /* PAFolderChooserTableViewController.m */; };
 		9902ADD5181466E900C68BF6 /* PAFileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9902ADD4181466E900C68BF6 /* PAFileView.m */; };
+		9936E3BE185919B7004C78FA /* NSURL+PutIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 9936E3BD185919B7004C78FA /* NSURL+PutIO.m */; };
+		9936E3C218591B69004C78FA /* PAOpenInVLCActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 9936E3C118591B69004C78FA /* PAOpenInVLCActivity.m */; };
+		9936E3C818591D26004C78FA /* UIActivityViewController+PutIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 9936E3C718591D26004C78FA /* UIActivityViewController+PutIO.m */; };
+		9936E3CB18591DD7004C78FA /* PKFile+PutIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 9936E3CA18591DD7004C78FA /* PKFile+PutIO.m */; };
 		999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */; };
 		999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */; };
 		999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FB817DC8A52009CF606 /* PAMainViewController.m */; };
@@ -68,6 +72,14 @@
 		8D8DF9D5A61C4C87A7E6006E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		9902ADD3181466E900C68BF6 /* PAFileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFileView.h; sourceTree = "<group>"; };
 		9902ADD4181466E900C68BF6 /* PAFileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFileView.m; sourceTree = "<group>"; };
+		9936E3BC185919B7004C78FA /* NSURL+PutIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+PutIO.h"; sourceTree = "<group>"; };
+		9936E3BD185919B7004C78FA /* NSURL+PutIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+PutIO.m"; sourceTree = "<group>"; };
+		9936E3C018591B69004C78FA /* PAOpenInVLCActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAOpenInVLCActivity.h; sourceTree = "<group>"; };
+		9936E3C118591B69004C78FA /* PAOpenInVLCActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAOpenInVLCActivity.m; sourceTree = "<group>"; };
+		9936E3C618591D26004C78FA /* UIActivityViewController+PutIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityViewController+PutIO.h"; sourceTree = "<group>"; };
+		9936E3C718591D26004C78FA /* UIActivityViewController+PutIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivityViewController+PutIO.m"; sourceTree = "<group>"; };
+		9936E3C918591DD7004C78FA /* PKFile+PutIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PKFile+PutIO.h"; sourceTree = "<group>"; };
+		9936E3CA18591DD7004C78FA /* PKFile+PutIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PKFile+PutIO.m"; sourceTree = "<group>"; };
 		999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFileViewController.h; sourceTree = "<group>"; };
 		999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFileViewController.m; sourceTree = "<group>"; };
 		999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -144,11 +156,11 @@
 		50664B74179E86CC00E403D8 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				508C5DA717A165550097FAAB /* PKFolder+RootFolder.h */,
-				508C5DA817A165550097FAAB /* PKFolder+RootFolder.m */,
 				50664B7D179E86CC00E403D8 /* PAAppDelegate.h */,
 				50664B7E179E86CC00E403D8 /* PAAppDelegate.m */,
 				50664B75179E86CC00E403D8 /* Supporting Files */,
+				9936E3BB185919A2004C78FA /* Additions */,
+				9936E3BF18591B49004C78FA /* Activities */,
 				9902ADD01813F89700C68BF6 /* Controllers */,
 				50728933179FD79C00235948 /* Images.xcassets */,
 			);
@@ -214,6 +226,30 @@
 				504B695C17A1D7C60019E587 /* Search */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		9936E3BB185919A2004C78FA /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				508C5DA717A165550097FAAB /* PKFolder+RootFolder.h */,
+				508C5DA817A165550097FAAB /* PKFolder+RootFolder.m */,
+				9936E3BC185919B7004C78FA /* NSURL+PutIO.h */,
+				9936E3BD185919B7004C78FA /* NSURL+PutIO.m */,
+				9936E3C618591D26004C78FA /* UIActivityViewController+PutIO.h */,
+				9936E3C718591D26004C78FA /* UIActivityViewController+PutIO.m */,
+				9936E3C918591DD7004C78FA /* PKFile+PutIO.h */,
+				9936E3CA18591DD7004C78FA /* PKFile+PutIO.m */,
+			);
+			name = Additions;
+			sourceTree = "<group>";
+		};
+		9936E3BF18591B49004C78FA /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				9936E3C018591B69004C78FA /* PAOpenInVLCActivity.h */,
+				9936E3C118591B69004C78FA /* PAOpenInVLCActivity.m */,
+			);
+			name = Activities;
 			sourceTree = "<group>";
 		};
 		999B0FAB17DBAE94009CF606 /* Files */ = {
@@ -338,20 +374,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9936E3CB18591DD7004C78FA /* PKFile+PutIO.m in Sources */,
 				999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */,
 				504B695F17A1D7F60019E587 /* PASearchViewController.m in Sources */,
 				999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */,
 				999B0FBC17DC8D2A009CF606 /* PAFilesViewController.m in Sources */,
 				50664B7B179E86CC00E403D8 /* main.m in Sources */,
 				508C5DA617A15E2F0097FAAB /* PAAddTorrentViewController.m in Sources */,
+				9936E3C818591D26004C78FA /* UIActivityViewController+PutIO.m in Sources */,
 				50B1BD2F17A0872B00ACF55F /* PAFolderChooserTableViewController.m in Sources */,
 				50664B7F179E86CC00E403D8 /* PAAppDelegate.m in Sources */,
+				9936E3BE185919B7004C78FA /* NSURL+PutIO.m in Sources */,
 				5072892F179EE25700235948 /* PATransfersViewController.m in Sources */,
 				5072893B17A0144E00235948 /* LSRoundProgressView.m in Sources */,
 				508C5DA917A165550097FAAB /* PKFolder+RootFolder.m in Sources */,
 				9902ADD5181466E900C68BF6 /* PAFileView.m in Sources */,
 				50728932179EF35C00235948 /* PATransferCategory.m in Sources */,
 				5019463017A0335300F1EC8E /* PATransferCell.m in Sources */,
+				9936E3C218591B69004C78FA /* PAOpenInVLCActivity.m in Sources */,
 				50728929179EDD2B00235948 /* PAPutIOController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

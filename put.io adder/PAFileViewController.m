@@ -12,6 +12,7 @@
 #import <PutioKit/PKFile.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "NSURL+PutIO.h"
 #import "PAFileView.h"
 #import "PAPutIOController.h"
 #import "PAFileViewController.h"
@@ -63,35 +64,6 @@
                                                     name:MPMoviePlayerLoadStateDidChangeNotification
                                                   object:nil];
 }
-
-
-#pragma mark Accessors
-
-- (void)setIsPlaying:(BOOL)isPlaying;
-{
-    if (isPlaying == _isPlaying) {
-        return;
-    }
-    
-    _isPlaying = isPlaying;
-    
-}
-
-- (void)updateNowPlayingInfo;
-{
-    NSMutableDictionary *nowPlayingInfo;
-    
-    if (self.playerController.playbackState != MPMoviePlaybackStateStopped) {
-        nowPlayingInfo = [NSMutableDictionary dictionary];
-        if (self.file.name) nowPlayingInfo[MPMediaItemPropertyTitle] = self.file.name;
-        
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(self.playerController.currentPlaybackTime);
-        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(self.playerController.playableDuration);
-    }
-    
-    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nowPlayingInfo];
-}
-
 
 #pragma mark UIViewController
 
@@ -227,6 +199,16 @@
     
     if (streamURL) {
         NSLog(@"url = %@", streamURL);
+        
+        if ([[UIApplication sharedApplication] canOpenURL:streamURL.vlcURL]) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Open in VLC", nil)
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                    handler:^(id sender) {
+                                                                                        NSLog(@"opening in VLC: %@", streamURL.vlcURL);
+                                                                                        [[UIApplication sharedApplication] openURL:streamURL.vlcURL];
+                                                                                    }];
+        }
+        
         if (!self.playerController) {
             self.playerController = [[MPMoviePlayerController alloc] initWithContentURL:streamURL];
             self.playerController.controlStyle = MPMovieControlStyleEmbedded;
@@ -267,6 +249,21 @@
     }
     
     [self.fileView setNeedsLayout];    
+}
+
+- (void)updateNowPlayingInfo;
+{
+    NSMutableDictionary *nowPlayingInfo;
+    
+    if (self.playerController.playbackState != MPMoviePlaybackStateStopped) {
+        nowPlayingInfo = [NSMutableDictionary dictionary];
+        if (self.file.name) nowPlayingInfo[MPMediaItemPropertyTitle] = self.file.name;
+        
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(self.playerController.currentPlaybackTime);
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(self.playerController.playableDuration);
+    }
+    
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nowPlayingInfo];
 }
 
 

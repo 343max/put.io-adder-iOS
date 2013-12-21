@@ -12,7 +12,7 @@
 @class PAFilesViewController;
 
 
-@interface PAMainViewController : UIViewController
+@interface PAMainViewController : UIPageViewController
 
 @property UISegmentedControl *sectionPicker;
 

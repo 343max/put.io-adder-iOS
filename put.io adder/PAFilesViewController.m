@@ -50,6 +50,9 @@
                                                   object:nil];
 }
 
+
+#pragma mark UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -192,7 +195,7 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    return UITableViewCellEditingStyleDelete;
 }
 
 #pragma mark UISearchDisplayDelegate

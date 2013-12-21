@@ -16,6 +16,10 @@
 
 #import "PAAppDelegate.h"
 
+@interface PAAppDelegate ()
+
+@end
+
 @implementation PAAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -27,7 +31,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    PAMainViewController *controller = [[PAMainViewController alloc] init];
+    PAMainViewController *controller = [[PAMainViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+                                                                       navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
+                                                                                     options:nil];
+    
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     
     self.window.tintColor = [UIColor colorWithRed:0.388 green:0.649 blue:0.109 alpha:1.000];
@@ -86,5 +93,10 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
+
+
 
 @end
