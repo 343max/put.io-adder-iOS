@@ -19,7 +19,7 @@ enum PAAppSection {
     PAAppSectionFiles = 1
 };
 
-@interface PAMainViewController ()  <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
+@interface PAMainViewController ()  <UIPageViewControllerDelegate>
 
 
 
@@ -31,8 +31,8 @@ enum PAAppSection {
 {
     [super viewDidLoad];
  
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.delegate = self;
-    self.dataSource = self;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                            target:self
@@ -51,10 +51,8 @@ enum PAAppSection {
     self.navigationItem.titleView = self.sectionPicker;
     
     self.transfersController = [[PATransfersViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.transfersController.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
     self.filesController = [[PAFilesViewController alloc] initWithFolder:nil];
-    self.filesController.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
     [self switchSetion:self.sectionPicker];
 }
@@ -98,29 +96,29 @@ enum PAAppSection {
     }
 }
 
-#pragma mark UIPageViewControllerDataSource
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController;
-{
-    if (viewController == self.transfersController) {
-        return nil;
-    } else if (viewController == self.filesController) {
-        return self.transfersController;
-    }
-    
-    return nil;
-}
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController;
-{
-    if (viewController == self.transfersController) {
-        return self.filesController;
-    } else if (viewController == self.filesController) {
-        return nil;
-    }
-    
-    return nil;
-}
+//#pragma mark UIPageViewControllerDataSource
+//
+//- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController;
+//{
+//    if (viewController == self.transfersController) {
+//        return nil;
+//    } else if (viewController == self.filesController) {
+//        return self.transfersController;
+//    }
+//    
+//    return nil;
+//}
+//
+//- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController;
+//{
+//    if (viewController == self.transfersController) {
+//        return self.filesController;
+//    } else if (viewController == self.filesController) {
+//        return nil;
+//    }
+//    
+//    return nil;
+//}
 
 - (NSUInteger)pageViewControllerSupportedInterfaceOrientations:(UIPageViewController *)pageViewController
 {
