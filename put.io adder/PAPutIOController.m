@@ -274,4 +274,14 @@ NSString * const PAPutIOControllerFilesAndFoldersDidReloadNotification = @"PAPut
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/mp4/stream?oauth_token=%@", file.id, self.putIOClient.apiToken]];
 }
 
+- (void)deleteItem:(id <PKFolderItem>)item callback:(void(^)(NSError *error))callback;
+{
+    NSParameterAssert(item);
+    [self.putIOClient requestDeletionForDisplayItem:item :^(id userInfoObject) {
+        callback(nil);
+    } failure:^(NSError *error) {
+        callback(error);
+    }];
+}
+
 @end

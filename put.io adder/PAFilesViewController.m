@@ -68,6 +68,7 @@
                   forControlEvents:UIControlEventValueChanged];
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+    self.searchBar.placeholder = NSLocalizedString(@"Search", nil);
     self.tableView.tableHeaderView = self.searchBar;
     
     [self updateFilesAndFolders];
@@ -157,7 +158,7 @@
             
             
             cell.detailTextLabel.text = [formatter stringFromNumber:file.size ofUnit:TTTByte];
-            NSLog(@"%@ byts %@ KB %.2f MB %.2f", file.name, file.size, file.size.doubleValue / 1024.0, file.size.doubleValue / 1024.0 / 1024.0);
+//            NSLog(@"%@ byts %@ KB %.2f MB %.2f", file.name, file.size, file.size.doubleValue / 1024.0, file.size.doubleValue / 1024.0 / 1024.0);
         }
         
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -165,6 +166,55 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (!editingStyle == UITableViewCellEditingStyleDelete) {
+        return;
+    }
+    id<PKFolderItem> item = [self itemForIndexPath:indexPath inTableView:tableView];
+    
+    [[PAPutIOController sharedController] deleteItem:item callback:^(NSError *error) {
+        if (!error) {
+            NSMutableArray *mutableFilesAndFolders = [self.filesAndFolders mutableCopy];
+            NSInteger index = [mutableFilesAndFolders indexOfObject:item];
+            
+            if (index != NSNotFound) {
+                [mutableFilesAndFolders removeObjectAtIndex:index];
+                
+                [tableView beginUpdates];
+                self.filesAndFolders = [mutableFilesAndFolders copy];
+                [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationTop];
+                [tableView endUpdates];
+            }
+            
+        } else if ([error.domain isEqualToString:AFNetworkingErrorDomain]) {
+            NSInteger statusCode = [error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+            if (statusCode == 404) {
+                NSMutableArray *mutableFilesAndFolders = [self.filesAndFolders mutableCopy];
+                NSInteger index = [mutableFilesAndFolders indexOfObject:item];
+                
+                if (index != NSNotFound) {
+                    [mutableFilesAndFolders removeObjectAtIndex:index];
+                    
+                    [tableView beginUpdates];
+                    self.filesAndFolders = [mutableFilesAndFolders copy];
+                    [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationTop];
+                    [tableView endUpdates];
+                }
+            }
+        } else {
+            
+            [tableView setEditing:NO animated:YES];
+            
+            [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
+                                        message:error.localizedDescription
+                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                              otherButtonTitles:@[]
+                                        handler:NULL];
+        }
+    }];
 }
 
 - (NSString *)formattedFileSizeStringFromBytes:(NSNumber *)number;
@@ -177,6 +227,12 @@
 }
 
 #pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setEditing:YES animated:YES];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

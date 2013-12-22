@@ -39,4 +39,6 @@ extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 - (NSURL *)streamURLForFile:(PKFile *)file;
 - (NSURL *)mp4StreamURLForFile:(PKFile *)file;
 
+- (void)deleteItem:(id <PKFolderItem>)item callback:(void(^)(NSError *error))callback;
+
 @end
