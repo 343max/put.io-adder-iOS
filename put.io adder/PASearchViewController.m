@@ -12,6 +12,7 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 
 @interface PASearchViewController ()
 
+@property UITextField *textField;
 @property (strong) NSString *searchString;
 @property (strong, nonatomic) NSArray *history;
 
@@ -197,6 +198,7 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
                 self.searchString = textField.text;
             } forControlEvents:UIControlEventValueChanged];
             
+            self.textField = textField;
             
             [cell addSubview:textField];
         }
@@ -221,11 +223,21 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (indexPath.section == 1) {
-        [self searchForString:self.history[indexPath.row]];
+        self.textField.text = self.history[indexPath.row];
+        [self.textField becomeFirstResponder];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+{
+    if (section == 1) {
+        return NSLocalizedString(@"Search History", nil);
+    }
+    
+    return nil;
+}
 
 #pragma mark UITextFieldDelegate
 
