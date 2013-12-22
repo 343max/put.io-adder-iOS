@@ -173,8 +173,12 @@
     if (!editingStyle == UITableViewCellEditingStyleDelete) {
         return;
     }
+    static BOOL isLoading = NO;
+    if (isLoading) return;
+    
     id<PKFolderItem> item = [self itemForIndexPath:indexPath inTableView:tableView];
     
+    isLoading = YES;
     [[PAPutIOController sharedController] deleteItem:item callback:^(NSError *error) {
         if (!error) {
             NSMutableArray *mutableFilesAndFolders = [self.filesAndFolders mutableCopy];
@@ -214,6 +218,7 @@
                               otherButtonTitles:@[]
                                         handler:NULL];
         }
+        isLoading = NO;
     }];
 }
 
