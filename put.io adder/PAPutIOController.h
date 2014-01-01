@@ -34,6 +34,9 @@ extern NSString * const PAPutIOControllerTransfersDidChangeNotification;
 
 - (void)fileForTransfer:(PKTransfer *)transfer callback:(void(^)(PKFile *file, NSError *error))callback;
 
+- (void)updateMP4StatusForFile:(PKFile *)file callback:(void(^)(PKMP4Status *status, NSError *error))callback;
+- (void)requestMP4ForFile:(PKFile *)file callback:(void(^)(PKMP4Status *status, NSError *error))callback;
+
 - (NSURL *)mp4URLForFile:(PKFile *)file;
 - (NSURL *)downloadURLForFile:(PKFile *)file;
 - (NSURL *)streamURLForFile:(PKFile *)file;

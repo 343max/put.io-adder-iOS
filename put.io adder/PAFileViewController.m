@@ -16,6 +16,7 @@
 #import "PAFileView.h"
 #import "PAPutIOController.h"
 #import "PAFileViewController.h"
+#import "PAMP4ConversionView.h"
 
 @interface PAFileViewController ()
 
@@ -189,6 +190,8 @@
 {
     self.title = self.file.name;
     self.fileView.titleLabel.text = self.title;
+    [self updateMP4Status];
+    
     
     NSURL *streamURL;
     if (self.file.isMP4Available.boolValue) {
@@ -251,6 +254,21 @@
     [self.fileView setNeedsLayout];    
 }
 
+- (void)updateMP4Status;
+{
+    @weakify(self);
+    [[PAPutIOController sharedController] updateMP4StatusForFile:self.file
+                                                        callback:^(PKMP4Status *status, NSError *error) {
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                @strongify(self);
+                                                                
+                                                                self.fileView.conversionView.mp4Status = status;
+                                                                
+                                                                if (error) [self presentError:error];
+                                                            });
+                                                        }];
+}
+
 - (void)updateNowPlayingInfo;
 {
     NSMutableDictionary *nowPlayingInfo;
@@ -260,7 +278,7 @@
         if (self.file.name) nowPlayingInfo[MPMediaItemPropertyTitle] = self.file.name;
         
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(self.playerController.currentPlaybackTime);
-        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(self.playerController.playableDuration);
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(self.playerController.duration);
     }
     
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nowPlayingInfo];
@@ -297,6 +315,16 @@
     }
 }
 
+- (void)presentError:(NSError *)error;
+{
+    if (error) {
+        [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
+                                    message:error.localizedDescription
+                          cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                          otherButtonTitles:@[]
+                                    handler:NULL];
+    }
+}
 
 #pragma mark Actions
 

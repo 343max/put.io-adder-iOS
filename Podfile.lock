@@ -19,6 +19,9 @@ PODS:
   - FormatterKit/TimeIntervalFormatter (1.3.0)
   - FormatterKit/UnitOfInformationFormatter (1.3.0)
   - FormatterKit/URLRequestFormatter (1.3.0)
+  - libextobjc/EXTScope (0.3):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.3)
   - libffi (3.0.13)
   - NSObject+Expectation (0.2)
   - PutioKit (0.1):
@@ -27,6 +30,7 @@ PODS:
 DEPENDENCIES:
   - BlocksKit (HEAD)
   - FormatterKit
+  - libextobjc/EXTScope (~> 0.3)
   - NSObject+Expectation
   - PutioKit (from `External/PutioKit`)
 
@@ -35,11 +39,12 @@ EXTERNAL SOURCES:
     :path: External/PutioKit
 
 SPEC CHECKSUMS:
-  AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
+  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
   BlocksKit: 7396526b0816734103f6133fbb1a520c8b04e80c
   FormatterKit: b1a8f7b8eee927860c674de7f2abd53a28208c2a
+  libextobjc: 820a79dbbbc498611e04fffd07d2d52a5588e7ac
   libffi: 64ef39353e747bb2b25e1026afd96a157bf9231c
   NSObject+Expectation: 7acea14a0ac731cb78b9402ac3d314327bd6a143
   PutioKit: de585b6dc650841e4199372a20fb821d286399ef
 
-COCOAPODS: 0.26.2
+COCOAPODS: 0.28.0

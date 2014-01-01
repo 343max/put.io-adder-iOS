@@ -254,6 +254,32 @@ NSString * const PAPutIOControllerFilesAndFoldersDidReloadNotification = @"PAPut
 
 }
 
+- (void)updateMP4StatusForFile:(PKFile *)file callback:(void(^)(PKMP4Status *status, NSError *error))callback;
+{
+    NSParameterAssert(file);
+    
+    [self.putIOClient getMP4InfoForFile:file
+                                       :^(PKMP4Status *status) {
+                                           if (callback) callback(status, nil);
+                                       }
+                                failure:^(NSError *error) {
+                                    if (callback) callback(nil, error);
+                                }];
+}
+
+- (void)requestMP4ForFile:(PKFile *)file callback:(void(^)(PKMP4Status *status, NSError *error))callback;
+{
+    NSParameterAssert(file);
+    
+    [self.putIOClient requestMP4ForFile:file
+                                       :^(PKMP4Status *status) {
+                                           if (callback) callback(status, nil);
+                                       }
+                                failure:^(NSError *error) {
+                                    if (callback) callback(nil, error);
+                                }];
+}
+
 - (NSURL *)mp4URLForFile:(PKFile *)file;
 {
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.put.io/v2/files/%@/mp4?oauth_token=%@", file.id, self.putIOClient.apiToken]];

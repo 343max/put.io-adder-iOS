@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import "PAMP4ConversionView.h"
 #import "PAFileView.h"
 
 @interface PAFileView ()
@@ -13,6 +14,7 @@
 @property (readwrite) UIView *viedoPlayerContainerView;
 @property (readwrite) UIImageView *headerImageView;
 @property (readwrite) UILabel *titleLabel;
+@property (readwrite) PAMP4ConversionView *conversionView;
 
 @end
 
@@ -37,6 +39,9 @@
         _titleLabel.textColor = [UIColor blackColor];
         _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         [self addSubview:_titleLabel];
+        
+        _conversionView = [[PAMP4ConversionView alloc] initWithFrame:self.bounds];
+        [self addSubview:_conversionView];
     }
     return self;
 }
@@ -63,6 +68,10 @@
     [self.titleLabel sizeToFit];
 
     offset.y = fmax(CGRectGetMaxY(self.titleLabel.frame), offset.y);
+    
+    self.conversionView.frame = CGRectMake(0, offset.y, CGRectGetWidth(self.bounds), 66);
+    
+    offset.y = fmax(offset.y, CGRectGetMaxY(self.conversionView.frame));
     
     offset.y += self.textIndsets.bottom;
     

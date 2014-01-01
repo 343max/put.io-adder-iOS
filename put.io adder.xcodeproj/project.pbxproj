@@ -28,6 +28,7 @@
 		9936E3C218591B69004C78FA /* PAOpenInVLCActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 9936E3C118591B69004C78FA /* PAOpenInVLCActivity.m */; };
 		9936E3C818591D26004C78FA /* UIActivityViewController+PutIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 9936E3C718591D26004C78FA /* UIActivityViewController+PutIO.m */; };
 		9936E3CB18591DD7004C78FA /* PKFile+PutIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 9936E3CA18591DD7004C78FA /* PKFile+PutIO.m */; };
+		997F4FBB18672DFD00882C0B /* PAMP4ConversionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 997F4FBA18672DFD00882C0B /* PAMP4ConversionView.m */; };
 		999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */; };
 		999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */; };
 		999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FB817DC8A52009CF606 /* PAMainViewController.m */; };
@@ -80,6 +81,8 @@
 		9936E3C718591D26004C78FA /* UIActivityViewController+PutIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivityViewController+PutIO.m"; sourceTree = "<group>"; };
 		9936E3C918591DD7004C78FA /* PKFile+PutIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PKFile+PutIO.h"; sourceTree = "<group>"; };
 		9936E3CA18591DD7004C78FA /* PKFile+PutIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PKFile+PutIO.m"; sourceTree = "<group>"; };
+		997F4FB918672DFD00882C0B /* PAMP4ConversionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAMP4ConversionView.h; sourceTree = "<group>"; };
+		997F4FBA18672DFD00882C0B /* PAMP4ConversionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAMP4ConversionView.m; sourceTree = "<group>"; };
 		999B0FAC17DBAEB9009CF606 /* PAFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFileViewController.h; sourceTree = "<group>"; };
 		999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFileViewController.m; sourceTree = "<group>"; };
 		999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -261,6 +264,8 @@
 				999B0FAD17DBAEB9009CF606 /* PAFileViewController.m */,
 				9902ADD3181466E900C68BF6 /* PAFileView.h */,
 				9902ADD4181466E900C68BF6 /* PAFileView.m */,
+				997F4FB918672DFD00882C0B /* PAMP4ConversionView.h */,
+				997F4FBA18672DFD00882C0B /* PAMP4ConversionView.m */,
 			);
 			name = Files;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				9936E3CB18591DD7004C78FA /* PKFile+PutIO.m in Sources */,
 				999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */,
 				504B695F17A1D7F60019E587 /* PASearchViewController.m in Sources */,
+				997F4FBB18672DFD00882C0B /* PAMP4ConversionView.m in Sources */,
 				999B0FAF17DBAEB9009CF606 /* PAFileViewController.m in Sources */,
 				999B0FBC17DC8D2A009CF606 /* PAFilesViewController.m in Sources */,
 				50664B7B179E86CC00E403D8 /* main.m in Sources */,
