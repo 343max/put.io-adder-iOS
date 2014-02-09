@@ -1,4 +1,8 @@
 # put.ter
+
+<img src="Screenshots/Transfers.png" width="50%">
+<img src="Screenshots/Download.png" width="50%" style="float:right">
+
 ## iOS app to start & montior transfers on put.io
 
 - suport for magnet links & torrent files
