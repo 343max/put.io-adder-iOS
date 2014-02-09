@@ -1,10 +1,5 @@
-# put.io adder
-## iOS 7 only app to start & watch transfers on put.io
-
-### might come:
-
-- Background updates
-- choose the folder to download files to
+# put.ter
+## iOS app to start & montior transfers on put.io
 
 ## Install
 
