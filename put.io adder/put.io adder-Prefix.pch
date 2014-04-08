@@ -13,5 +13,6 @@
     #import <Foundation/Foundation.h>
 
     #import <BlocksKit/BlocksKit.h>
+    #import <BlocksKit/BlocksKit+UIKit.h>
     #import <NSObject+Expectation/NSObject+Expectation.h>
 #endif

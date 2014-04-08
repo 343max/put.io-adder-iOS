@@ -41,7 +41,7 @@
     [[PAPutIOController sharedController].putIOClient getFolderItems:folder
                                                                     :^(NSArray *filesAndFolders)
      {
-         NSArray *folders = [filesAndFolders select:^BOOL(id obj) {
+         NSArray *folders = [filesAndFolders bk_select:^BOOL(id obj) {
              return [obj isKindOfClass:[PKFolder class]];
          }];
          
@@ -66,7 +66,7 @@
         [flatFolders addObject:[PKFolder rootFolder]];
     }
     
-    [folders each:^(PKFolder *folder) {
+    [folders bk_each:^(PKFolder *folder) {
         folder.numberOfParentFolders = depth;
         [flatFolders addObject:folder];
         [flatFolders addObjectsFromArray:[self flatFoldersFromFolderDict:foldersByParent
@@ -82,14 +82,14 @@
     if (_folders == folders) return;
     
     NSMutableDictionary *foldersByParent = [[NSMutableDictionary alloc] init];
-    [folders each:^(PKFolder *folder) {
+    [folders bk_each:^(PKFolder *folder) {
         if (foldersByParent[folder.parentID] == nil) {
             foldersByParent[folder.parentID] = [[NSMutableArray alloc] init];
         }
         [foldersByParent[folder.parentID] addObject:folder];
     }];
     
-    [foldersByParent each:^(NSString *parentId, NSMutableArray *arrayOfFolders) {
+    [foldersByParent bk_each:^(NSString *parentId, NSMutableArray *arrayOfFolders) {
         [arrayOfFolders sortUsingComparator:^NSComparisonResult(PKFolder *folder1, PKFolder *folder2) {
             return [folder1.name compare:folder2.name];
         }];
@@ -99,7 +99,7 @@
     
     [self.tableView reloadData];
 
-    [_folders each:^(PKFolder *folder) {
+    [_folders bk_each:^(PKFolder *folder) {
         if ([folder.id isEqualToString:self.addTorrentViewController.selectedFolder.id]) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_folders indexOfObject:folder] inSection:0];
             [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];

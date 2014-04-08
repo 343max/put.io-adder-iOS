@@ -47,7 +47,7 @@ NSString * const PAPutIOControllerTransfersDidChangeNotification = @"PAPutIOCont
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     
-    [webView setShouldStartLoadBlock:^BOOL(UIWebView *webView, NSURLRequest *request, UIWebViewNavigationType navigationType) {
+    [webView bk_setShouldStartLoadBlock:^BOOL(UIWebView *webView, NSURLRequest *request, UIWebViewNavigationType navigationType) {
         NSURL *URL = request.URL;
         
         if ([URL.host isEqualToString:@"localhost"]) {

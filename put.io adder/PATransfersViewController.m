@@ -102,13 +102,13 @@
         
         NSLog(@"error: %@", error);
         
-        [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
-                                    message:error.localizedDescription
-                          cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay button title")
-                          otherButtonTitles:nil
-                                    handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                        //
-                                    }];
+        [UIAlertView bk_showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
+                                       message:error.localizedDescription
+                             cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay button title")
+                             otherButtonTitles:nil
+                                       handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                           //
+                                       }];
     }];
 }
 
@@ -120,7 +120,7 @@
     
     NSMutableDictionary *transfersDict = [[NSMutableDictionary alloc] init];
     
-    [transfers each:^(PKTransfer *transfer) {
+    [transfers bk_each:^(PKTransfer *transfer) {
         NSNumber *status = @(transfer.transferStatus);
         
         if (transfersDict[status] == nil) {
@@ -148,10 +148,10 @@
     
     NSMutableArray *categories = [[NSMutableArray alloc] initWithCapacity:transfersDict.count];
     
-    [order each:^(NSNumber *status) {
+    [order bk_each:^(NSNumber *status) {
         PATransferCategory *category = [[PATransferCategory alloc] initWithTitle:titles[status]
                                                                        transfers:transfersDict[status]
-                                                                      statusCode:[status integerValue]];
+                                                                      statusCode:[status intValue]];
         
         if (category.transfers.count != 0) {
             [category sort];

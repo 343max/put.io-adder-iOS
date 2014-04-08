@@ -35,8 +35,8 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                             handler:^(id sender)
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                                handler:^(id sender)
                                                  {
                                                      [self.navigationController dismissViewControllerAnimated:YES
                                                                                                    completion:nil];
@@ -52,8 +52,8 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
 
 - (void)searchSettings:(id)sender;
 {
-    UIAlertView *alertView = [UIAlertView alertViewWithTitle:NSLocalizedString(@"Search Website", nil)
-                                                     message:NSLocalizedString(@"URL of the WebSite to search. %s will be replaced by your search query.", nil)];
+    UIAlertView *alertView = [UIAlertView bk_alertViewWithTitle:NSLocalizedString(@"Search Website", nil)
+                                                        message:NSLocalizedString(@"URL of the WebSite to search. %s will be replaced by your search query.", nil)];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     UITextField *URLField = [alertView textFieldAtIndex:0];
@@ -63,18 +63,18 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
     
     [alertView addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     
-    [alertView addButtonWithTitle:NSLocalizedString(@"Save", nil)
-                          handler:^{
-                              if (URLField.text == nil) {
-                                  self.searchEngineTemplate = nil;
-                              } else {
-                                  NSURL *URL = [NSURL URLWithString:[URLField.text stringByReplacingOccurrencesOfString:@"%s"
-                                                                                                             withString:@"sss"]];
-                                  if ([URL.scheme isEqualToString:@"http"] || [URL.scheme isEqualToString:@"https"]) {
-                                      self.searchEngineTemplate = URLField.text;
-                                  }
-                              }
-                          }];
+    [alertView bk_addButtonWithTitle:NSLocalizedString(@"Save", nil)
+                             handler:^{
+                                 if (URLField.text == nil) {
+                                     self.searchEngineTemplate = nil;
+                                 } else {
+                                     NSURL *URL = [NSURL URLWithString:[URLField.text stringByReplacingOccurrencesOfString:@"%s"
+                                                                                                                withString:@"sss"]];
+                                     if ([URL.scheme isEqualToString:@"http"] || [URL.scheme isEqualToString:@"https"]) {
+                                         self.searchEngineTemplate = URLField.text;
+                                     }
+                                 }
+                             }];
     
     [alertView show];
 }
@@ -193,10 +193,9 @@ NSString * const PASearchViewControllerDefaultSearchTemplate = @"http://archive.
             textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             textField.delegate = self;
             
-            [textField addEventHandler:^(UITextField *textField) {
+            [textField bk_addEventHandler:^(UITextField *textField) {
                 self.searchString = textField.text;
             } forControlEvents:UIControlEventValueChanged];
-            
             
             [cell addSubview:textField];
         }
