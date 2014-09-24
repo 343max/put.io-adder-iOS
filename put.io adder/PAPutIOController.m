@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import <PutioKit/PutIONetworkConstants.h>
 
 #import "PAPutIOController.h"
@@ -121,7 +122,7 @@ NSString * const PAPutIOControllerFilesAndFoldersDidReloadNotification = @"PAPut
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     
-    [webView setShouldStartLoadBlock:^BOOL(UIWebView *webView, NSURLRequest *request, UIWebViewNavigationType navigationType) {
+    [webView bk_setShouldStartLoadBlock:^BOOL(UIWebView *webView, NSURLRequest *request, UIWebViewNavigationType navigationType) {
         NSURL *URL = request.URL;
         
         if ([URL.host isEqualToString:@"localhost"]) {

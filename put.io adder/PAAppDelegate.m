@@ -43,9 +43,11 @@
     self.window.rootViewController = navigationController;
     
     if ([PAPutIOController sharedController].putIOClient.ready == NO) {
-        [self.navigationController presentViewController:[[PAPutIOController sharedController] authenticationViewController]
-                                                animated:YES
-                                              completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{            
+            [self.navigationController presentViewController:[[PAPutIOController sharedController] authenticationViewController]
+                                                    animated:YES
+                                                  completion:nil];
+        });
     }
     
     return YES;

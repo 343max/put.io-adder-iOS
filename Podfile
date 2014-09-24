@@ -1,7 +1,7 @@
 pod 'NSObject+Expectation'
 pod 'FormatterKit'
 
-pod 'BlocksKit', :head
+pod 'BlocksKit'
 
 pod 'PutioKit', :path => 'External/PutioKit'
-pod 'libextobjc/EXTScope', '~> 0.3'
+pod 'libextobjc/EXTScope'

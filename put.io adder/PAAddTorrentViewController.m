@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import <PutioKit/PKFolder.h>
 #import "PKFolder+RootFolder.h"
 
@@ -78,7 +79,7 @@
             self.selectedFolder = [PKFolder rootFolder];
         }
         
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                              handler:^(id sender)
                                                  {
                                                      [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -138,7 +139,7 @@
             textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             textField.placeholder = NSLocalizedString(@"Torrent or Magnet URL", nil);
             textField.text = self.torrentURLString;
-            [textField addEventHandler:^(UITextField *textField) {
+            [textField bk_addEventHandler:^(UITextField *textField) {
                 self.torrentURLString = textField.text;
                 self.addButton.enabled = [self isValidTorrentURLString:self.torrentURLString];
             } forControlEvents:UIControlEventEditingChanged];

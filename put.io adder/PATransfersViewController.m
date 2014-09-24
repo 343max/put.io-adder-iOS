@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import "PAPutIOController.h"
 #import "PATransferCategory.h"
 #import "PATransferCell.h"
@@ -82,7 +83,7 @@
         if (error) {
             NSLog(@"error: %@", error);
             
-            [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
+            [UIAlertView bk_showAlertViewWithTitle:NSLocalizedString(@"Error", @"Error Alert View Title")
                                         message:error.localizedDescription
                               cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay button title")
                               otherButtonTitles:nil
@@ -108,7 +109,7 @@
     
     NSMutableDictionary *transfersDict = [[NSMutableDictionary alloc] init];
     
-    [transfers each:^(PKTransfer *transfer) {
+    [transfers bk_each:^(PKTransfer *transfer) {
         NSNumber *status = @(transfer.transferStatus);
         
         if (transfersDict[status] == nil) {
@@ -136,7 +137,7 @@
     
     NSMutableArray *categories = [[NSMutableArray alloc] initWithCapacity:transfersDict.count];
     
-    [order each:^(NSNumber *status) {
+    [order bk_each:^(NSNumber *status) {
         PATransferCategory *category = [[PATransferCategory alloc] initWithTitle:titles[status]
                                                                        transfers:transfersDict[status]
                                                                       statusCode:[status integerValue]];

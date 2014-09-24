@@ -70,7 +70,7 @@
 - (void)unsubscribeKVO;
 {
     if (self.KVOToken) {
-        [self removeObserversWithIdentifier:self.KVOToken];
+        [self bk_removeObserversWithIdentifier:self.KVOToken];
     }
 }
 
@@ -81,7 +81,7 @@
     [self unsubscribeKVO];
     
     __weak id blockSelf = self;
-    self.KVOToken = [self addObserverForKeyPaths:@[ @"mp4Status.mp4Status",
+    self.KVOToken = [self bk_addObserverForKeyPaths:@[ @"mp4Status.mp4Status",
                                                     @"progress" ]
                                          options:NSKeyValueObservingOptionInitial
                                             task:^(id obj, NSString *keyPath, NSDictionary *change) {

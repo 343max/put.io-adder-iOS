@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 343max. All rights reserved.
 //
 
-#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import <FormatterKit/TTTUnitOfInformationFormatter.h>
 
 #import "PAPutIOController.h"
@@ -99,7 +99,7 @@
         [self.refreshControl endRefreshing];
         
         if (error) {
-            [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
+            [UIAlertView bk_showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
                                         message:error.localizedDescription
                               cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
                               otherButtonTitles:@[ NSLocalizedString(@"Retry", nil) ]
@@ -151,10 +151,10 @@
         cell.textLabel.text = file.displayName;
         if (file.size.unsignedIntegerValue > 0) {
             TTTUnitOfInformationFormatter *formatter = [[TTTUnitOfInformationFormatter alloc] init];
-            formatter.numberFormatter.locale = [NSLocale currentLocale];
-            formatter.numberFormatter.roundingIncrement = @.001;
-            formatter.numberFormatter.minimumFractionDigits = 0;
-            formatter.numberFormatter.maximumFractionDigits = 2;
+//            formatter.numberFormatter.locale = [NSLocale currentLocale];
+//            formatter.numberFormatter.roundingIncrement = @.001;
+//            formatter.numberFormatter.minimumFractionDigits = 0;
+//            formatter.numberFormatter.maximumFractionDigits = 2;
             
             
             cell.detailTextLabel.text = [formatter stringFromNumber:file.size ofUnit:TTTByte];
@@ -212,7 +212,7 @@
             
             [tableView setEditing:NO animated:YES];
             
-            [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
+            [UIAlertView bk_showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
                                         message:error.localizedDescription
                               cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
                               otherButtonTitles:@[]
@@ -263,7 +263,7 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString;
 {
-    self.filteredFilesAndFolders = [self.filesAndFolders select:^BOOL(PKFile *obj) {
+    self.filteredFilesAndFolders = [self.filesAndFolders bk_select:^BOOL(PKFile *obj) {
         return [obj.displayName rangeOfString:searchString options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch].location != NSNotFound;
     }];
     return YES;

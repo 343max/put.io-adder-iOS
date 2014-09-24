@@ -8,7 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import <PutioKit/PKFile.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -44,7 +44,7 @@
         _file = file;
 
         __weak PAFileViewController *weakSelf = self;
-        [_file addObserverForKeyPaths:@[ @"name", @"screenshot", @"isMP4Available" ]
+        [_file bk_addObserverForKeyPaths:@[ @"name", @"screenshot", @"isMP4Available" ]
                           identifier:@"foobar"
                              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
                                 task:^(PKFile *obj, NSString *keyPath, NSDictionary *change) {
@@ -56,7 +56,7 @@
 
 - (void)dealloc;
 {
-    [_file removeObserversWithIdentifier:@"foobar"];
+    [_file bk_removeObserversWithIdentifier:@"foobar"];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackStateDidChangeNotification
@@ -72,6 +72,7 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
     self.fileView = [[PAFileView alloc] initWithFrame:self.view.bounds];
     self.fileView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.fileView];
@@ -88,7 +89,7 @@
     
     
     if (self.navigationController.viewControllers.firstObject == self) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                              handler:^(id sender) {
                                                                                                  [self dismissViewControllerAnimated:YES completion:NULL];
                                                                                              }];
@@ -138,8 +139,8 @@
             if (!self.currentPlaybackTimeTimer) {
                 __weak id blockSelf = self;
                 [self.currentPlaybackTimeTimer invalidate];
-                self.currentPlaybackTimeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                                                  block:^(NSTimeInterval time) {
+                self.currentPlaybackTimeTimer = [NSTimer bk_scheduledTimerWithTimeInterval:1.0
+                                                                                  block:^(NSTimer *timer) {
                                                                                       [blockSelf updateNowPlayingInfo];
                                                                                   }
                                                                                 repeats:YES];
@@ -204,7 +205,7 @@
         NSLog(@"url = %@", streamURL);
         
         if ([[UIApplication sharedApplication] canOpenURL:streamURL.vlcURL]) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Open in VLC", nil)
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:NSLocalizedString(@"Open in VLC", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                     handler:^(id sender) {
                                                                                         NSLog(@"opening in VLC: %@", streamURL.vlcURL);
@@ -318,7 +319,7 @@
 - (void)presentError:(NSError *)error;
 {
     if (error) {
-        [UIAlertView showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
+        [UIAlertView bk_showAlertViewWithTitle:NSLocalizedString(@"Error", nil)
                                     message:error.localizedDescription
                           cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
                           otherButtonTitles:@[]
