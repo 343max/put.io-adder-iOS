@@ -33,6 +33,7 @@
 		999B0FB617DC7FE9009CF606 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999B0FB517DC7FE9009CF606 /* MediaPlayer.framework */; };
 		999B0FB917DC8A52009CF606 /* PAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FB817DC8A52009CF606 /* PAMainViewController.m */; };
 		999B0FBC17DC8D2A009CF606 /* PAFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */; };
+		99C1BF8319D369AF00947881 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99C1BF8219D369AF00947881 /* Launch.storyboard */; };
 		99E5FA3218590AD200EDEA33 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E5FA3118590AD200EDEA33 /* AVFoundation.framework */; };
 		99EEC53B17C2C1FC00222CDC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */; };
 		99EEC53D17C2C20300222CDC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */; };
@@ -90,6 +91,7 @@
 		999B0FB817DC8A52009CF606 /* PAMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAMainViewController.m; sourceTree = "<group>"; };
 		999B0FBA17DC8D2A009CF606 /* PAFilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFilesViewController.h; sourceTree = "<group>"; };
 		999B0FBB17DC8D2A009CF606 /* PAFilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFilesViewController.m; sourceTree = "<group>"; };
+		99C1BF8219D369AF00947881 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Launch.storyboard; path = ../Launch.storyboard; sourceTree = "<group>"; };
 		99E5FA3118590AD200EDEA33 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		99EEC53A17C2C1FC00222CDC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		99EEC53C17C2C20300222CDC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -165,6 +167,7 @@
 				9936E3BB185919A2004C78FA /* Additions */,
 				9936E3BF18591B49004C78FA /* Activities */,
 				9902ADD01813F89700C68BF6 /* Controllers */,
+				99C1BF8219D369AF00947881 /* Launch.storyboard */,
 				50728933179FD79C00235948 /* Images.xcassets */,
 			);
 			name = Code;
@@ -336,6 +339,7 @@
 			files = (
 				50664B79179E86CC00E403D8 /* InfoPlist.strings in Resources */,
 				50728934179FD79C00235948 /* Images.xcassets in Resources */,
+				99C1BF8319D369AF00947881 /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +432,6 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -459,7 +462,6 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -479,13 +481,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "put.io adder/put.io adder-Prefix.pch";
 				INFOPLIST_FILE = "put.io adder/put.io adder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = put.ter;
-				PROVISIONING_PROFILE = "C9579C63-AE13-4A17-97BF-07228B191BF1";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -498,13 +499,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "put.io adder/put.io adder-Prefix.pch";
 				INFOPLIST_FILE = "put.io adder/put.io adder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = put.ter;
-				PROVISIONING_PROFILE = "C9579C63-AE13-4A17-97BF-07228B191BF1";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

@@ -53,6 +53,12 @@
 
 #pragma mark UIViewController
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self reloadFiles:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
