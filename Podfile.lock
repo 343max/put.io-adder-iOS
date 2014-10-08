@@ -1,5 +1,5 @@
 PODS:
-  - AFNetworking (1.3.3)
+  - AFNetworking (1.3.4)
   - BlocksKit (HEAD based on 2.2.2):
     - BlocksKit/All
   - BlocksKit/All (HEAD based on 2.2.2):
@@ -29,9 +29,9 @@ EXTERNAL SOURCES:
     :path: External/PutioKit
 
 SPEC CHECKSUMS:
-  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
-  BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
-  NSObject+Expectation: 7acea14a0ac731cb78b9402ac3d314327bd6a143
+  AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
+  BlocksKit: 49fda17cbd628f3d6683f62de57edeaa315b386c
+  NSObject+Expectation: 38a2958dad51558edc3912e3b3c7db8f2e8af70e
   PutioKit: de585b6dc650841e4199372a20fb821d286399ef
 
-COCOAPODS: 0.31.1
+COCOAPODS: 0.34.1
