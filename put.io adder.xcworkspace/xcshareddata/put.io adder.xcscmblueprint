@@ -1,0 +1,44 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5EA0E2F25DA722362186E4BC236737642EC9C7A9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "42FEFE87-172C-46B6-B41D-5957EF931930" : 0,
+    "5EA0E2F25DA722362186E4BC236737642EC9C7A9" : 0,
+    "CE7EA561763805DACBC7B43AEC9128B8D4A24DF1" : 0,
+    "E61BC001-DFED-41D7-B2BF-EC1C5156C1BB" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7D15D96B-F86A-4CC2-9231-C4CED327E735",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "42FEFE87-172C-46B6-B41D-5957EF931930" : "put",
+    "5EA0E2F25DA722362186E4BC236737642EC9C7A9" : "code\/",
+    "CE7EA561763805DACBC7B43AEC9128B8D4A24DF1" : "code\/External\/PutioKit\/",
+    "E61BC001-DFED-41D7-B2BF-EC1C5156C1BB" : "put\/External\/PutioKit"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "put.io adder",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "put.io adder.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/github.com\/343max\/put.io-adder-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "42FEFE87-172C-46B6-B41D-5957EF931930"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:343max\/put.io-adder-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5EA0E2F25DA722362186E4BC236737642EC9C7A9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:343max\/PutioKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CE7EA561763805DACBC7B43AEC9128B8D4A24DF1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/github.com\/343max\/PutioKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E61BC001-DFED-41D7-B2BF-EC1C5156C1BB"
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>7D15D96B-F86A-4CC2-9231-C4CED327E735</string>
 	<key>IDESourceControlProjectName</key>
@@ -10,6 +12,10 @@
 	<dict>
 		<key>42FEFE87-172C-46B6-B41D-5957EF931930</key>
 		<string>ssh://github.com/343max/put.io-adder-iOS.git</string>
+		<key>5EA0E2F25DA722362186E4BC236737642EC9C7A9</key>
+		<string>github.com:343max/put.io-adder-iOS.git</string>
+		<key>CE7EA561763805DACBC7B43AEC9128B8D4A24DF1</key>
+		<string>github.com:343max/PutioKit.git</string>
 		<key>E61BC001-DFED-41D7-B2BF-EC1C5156C1BB</key>
 		<string>ssh://github.com/343max/PutioKit.git</string>
 	</dict>
@@ -18,18 +24,30 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>42FEFE87-172C-46B6-B41D-5957EF931930</key>
+		<string>../../put</string>
+		<key>5EA0E2F25DA722362186E4BC236737642EC9C7A9</key>
 		<string>..</string>
+		<key>CE7EA561763805DACBC7B43AEC9128B8D4A24DF1</key>
+		<string>..External/PutioKit</string>
 		<key>E61BC001-DFED-41D7-B2BF-EC1C5156C1BB</key>
-		<string>../External/PutioKit</string>
+		<string>../../put/External/PutioKit</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/343max/put.io-adder-iOS.git</string>
+	<string>github.com:343max/put.io-adder-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>42FEFE87-172C-46B6-B41D-5957EF931930</string>
+	<string>5EA0E2F25DA722362186E4BC236737642EC9C7A9</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5EA0E2F25DA722362186E4BC236737642EC9C7A9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>code</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
@@ -43,6 +61,14 @@
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>E61BC001-DFED-41D7-B2BF-EC1C5156C1BB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PutioKit</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CE7EA561763805DACBC7B43AEC9128B8D4A24DF1</string>
 			<key>IDESourceControlWCCName</key>
 			<string>PutioKit</string>
 		</dict>
